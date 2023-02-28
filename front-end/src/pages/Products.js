@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../components/Header';
 import ProductsCard from '../components/ProductsCard';
+import TotalValueBtn from '../components/TotalValueBtn';
 
 import { apiGetAll } from '../services/requests';
 
@@ -44,6 +45,7 @@ export default function Products() {
             </div>
           ))
         : (<p>{errorMessage}</p>)}
+      <TotalValueBtn />
     </main>
   );
 }
