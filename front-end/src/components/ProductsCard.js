@@ -25,10 +25,15 @@ export default function ProductsCard({ id, name, price, urlImage }) {
     const counter = count - 1;
     if (counter < 0) {
       setCount(0);
+      rmLocalStorageCartItem(item);
     } else {
       setCount(counter);
       rmLocalStorageCartItem(item);
     }
+  };
+
+  const handleChange = (event) => {
+    event.preventDefault();
   };
 
   return (
@@ -55,6 +60,7 @@ export default function ProductsCard({ id, name, price, urlImage }) {
         type="text"
         datatest-id={ `customer_products__input-card-quantity-${id}` }
         value={ count }
+        onChange={ (event) => handleChange(event) }
       />
       <button
         datatest-id={ `customer_products__button-card-add-item-${id}` }
@@ -71,6 +77,6 @@ export default function ProductsCard({ id, name, price, urlImage }) {
 ProductsCard.propTypes = {
   id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
-  price: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
   urlImage: PropTypes.string.isRequired,
 };

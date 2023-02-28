@@ -34,13 +34,15 @@ export default function Products() {
       { failedRequest
         ? allProducts
           .map(({ id, name, price, urlImage }) => (
-            <ProductsCard
-              key={ id }
-              id={ id }
-              name={ name }
-              price={ price }
-              urlImage={ urlImage }
-            />))
+            <div key={ id }>
+              <ProductsCard
+                id={ id }
+                name={ name }
+                price={ price }
+                urlImage={ urlImage }
+              />
+            </div>
+          ))
         : (<p>{errorMessage}</p>)}
     </main>
   );
