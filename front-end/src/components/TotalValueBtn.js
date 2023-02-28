@@ -14,6 +14,12 @@ export default function TotalValueBtn() {
     getValuesFromStorage();
   }, []);
   return (
-    <div>{totalValue}</div>
+    <div datatest-id="customer_products__checkout-bottom-value">
+      <button type="button">
+        Ver Carrinho: R$
+        {' '}
+        {totalValue.toFixed(2).replace('.', ',')}
+      </button>
+    </div>
   );
 }
