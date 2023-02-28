@@ -1,12 +1,24 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import {
+  addLocalStorageCartItem,
+  rmLocalStorageCartItem,
+} from '../services/localStorage';
 
 export default function ProductsCard({ id, name, price, urlImage }) {
   const [count, setCount] = useState(0);
 
+  const item = {
+    id,
+    name,
+    price,
+    urlImage,
+  };
+
   const addItem = () => {
     const counter = count + 1;
     setCount(counter);
+    addLocalStorageCartItem(item);
   };
 
   const rmItem = () => {
@@ -15,6 +27,7 @@ export default function ProductsCard({ id, name, price, urlImage }) {
       setCount(0);
     } else {
       setCount(counter);
+      rmLocalStorageCartItem(item);
     }
   };
 
