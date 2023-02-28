@@ -23,7 +23,8 @@ export const rmLocalStorageCartItem = (item) => {
     localStorageSaveItem('carrinho', []);
   } else {
     const itemIndex = localStorageItems.findIndex((e) => e.id === item.id);
-    const removeItem = localStorageItems.splice(itemIndex, 1);
-    localStorageSaveItem('carrinho', removeItem);
+    delete localStorageItems[itemIndex];
+    const newItems = localStorageItems.filter((e) => e !== null);
+    localStorageSaveItem('carrinho', newItems);
   }
 };
