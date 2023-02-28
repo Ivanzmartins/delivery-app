@@ -15,7 +15,10 @@ export default function TotalValueBtn() {
   }, []);
   return (
     <div datatest-id="customer_products__checkout-bottom-value">
-      <button type="button">
+      <button
+        type="button"
+        datatest-id="customer_products__button-cart"
+      >
         Ver Carrinho: R$
         {' '}
         {totalValue.toFixed(2).replace('.', ',')}
