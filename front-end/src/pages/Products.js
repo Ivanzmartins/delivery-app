@@ -14,12 +14,7 @@ export default function Products() {
     const getProducts = async () => {
       try {
         const products = await apiGetAll('/products');
-        const STATUS_OK = 200;
-        if (products.status !== STATUS_OK) {
-          setFailedRequest(true);
-          setErrorMessage('Erro ao buscar todos os produtos');
-        }
-        setAllProducts(products.data);
+        setAllProducts(products);
       } catch (error) {
         console.log(error);
         setFailedRequest(true);

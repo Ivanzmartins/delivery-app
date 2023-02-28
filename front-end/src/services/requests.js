@@ -14,8 +14,8 @@ export const requestLogin = async (endpoint, body) => {
 };
 
 export const apiPost = async (endpoint, body) => {
-  const response = await api.post(endpoint, body);
-  return response;
+  const { data } = await api.post(endpoint, body);
+  return data;
 };
 
 export const apiGetAll = async (endpoint) => {
