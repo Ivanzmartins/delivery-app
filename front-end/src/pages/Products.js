@@ -2,30 +2,28 @@ import React, { useEffect, useState } from 'react';
 import Header from '../components/Header';
 import ProductsCard from '../components/ProductsCard';
 
-// import { apiGetAll } from '../services/requests';
+import { apiGetAll } from '../services/requests';
 
 export default function Products() {
   const [allProducts, setAllProducts] = useState([]);
-
-  const bebidas = [
-    {
-      id: 1,
-      name: 'Skol Lata 250ml',
-      price: 2.20,
-      urlImage: 'http://localhost:3001/images/skol_lata_350ml.jpg',
-    },
-    {
-      id: 1,
-      name: 'Skol Lata 250ml',
-      price: 2.20,
-      urlImage: 'http://localhost:3001/images/skol_lata_350ml.jpg',
-    },
-  ];
+  const [failedRequest, setFailedRequest] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
     const getProducts = async () => {
-      // const products = await apiGetAll('/products');
-      setAllProducts(bebidas);
+      try {
+        const products = await apiGetAll('/products');
+        const STATUS_OK = 200;
+        if (products.status !== STATUS_OK) {
+          setFailedRequest(true);
+          setErrorMessage('Erro ao buscar todos os produtos');
+        }
+        setAllProducts(products.data);
+      } catch (error) {
+        console.log(error);
+        setFailedRequest(true);
+        setErrorMessage('Erro inesperado.');
+      }
     };
     getProducts();
   }, []);
@@ -33,8 +31,8 @@ export default function Products() {
   return (
     <main>
       <Header />
-      {
-        allProducts
+      { failedRequest
+        ? allProducts
           .map(({ id, name, price, urlImage }) => (
             <ProductsCard
               key={ id }
@@ -43,7 +41,7 @@ export default function Products() {
               price={ price }
               urlImage={ urlImage }
             />))
-      }
+        : (<p>{errorMessage}</p>)}
     </main>
   );
 }
