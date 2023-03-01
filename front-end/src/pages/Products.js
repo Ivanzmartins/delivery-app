@@ -24,8 +24,6 @@ export default function Products() {
     getProducts();
   }, []);
 
-  console.log(failedRequest);
-
   return (
     <main>
       <Header />
