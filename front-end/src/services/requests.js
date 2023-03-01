@@ -19,8 +19,8 @@ export const apiPost = async (endpoint, body) => {
 };
 
 export const apiGetAll = async (endpoint) => {
-  const response = await api.get(endpoint);
-  return response;
+  const { data } = await api.get(endpoint);
+  return data;
 };
 
 export default api;

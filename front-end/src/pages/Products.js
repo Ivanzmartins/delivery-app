@@ -8,7 +8,7 @@ import { apiGetAll } from '../services/requests';
 export default function Products() {
   const [allProducts, setAllProducts] = useState([]);
   const [failedRequest, setFailedRequest] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('Erro inesperado.');
 
   useEffect(() => {
     const getProducts = async () => {
@@ -24,21 +24,22 @@ export default function Products() {
     getProducts();
   }, []);
 
+  console.log(failedRequest);
+
   return (
     <main>
       <Header />
-      { failedRequest
-        ? allProducts
-          .map(({ id, name, price, urlImage }) => (
-            <div key={ id }>
-              <ProductsCard
-                id={ id }
-                name={ name }
-                price={ price }
-                urlImage={ urlImage }
-              />
-            </div>
-          ))
+      { !failedRequest ? allProducts
+        .map(({ id, name, price, urlImage }) => (
+          <div key={ id }>
+            <ProductsCard
+              id={ id }
+              name={ name }
+              price={ price }
+              urlImage={ urlImage }
+            />
+          </div>
+        ))
         : (<p>{errorMessage}</p>)}
       <TotalValueBtn />
     </main>
