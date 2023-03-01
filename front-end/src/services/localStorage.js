@@ -8,7 +8,7 @@ export const localStorageSaveItem = (key, value) => {
 
 export const getLocalStorageItem = (key) => {
   const checkStorage = localStorage.getItem(key);
-  if (!checkStorage) localStorageSaveItem(key, []);
+  if (!checkStorage && key === 'carrinho') localStorageSaveItem(key, []);
   return JSON.parse(localStorage.getItem(key));
 };
 
