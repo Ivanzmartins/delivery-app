@@ -27,7 +27,7 @@ export default function Login() {
 
       localStorageSaveItem('userInfos', userDTO);
       setUserInfos(userDTO);
-      navigate('/products');
+      navigate('/customer/products');
     } catch (error) {
       setFailedToLogin(true);
     }
