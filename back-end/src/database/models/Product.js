@@ -12,7 +12,7 @@ const Product = (sequelize, DataTypes) => {
     },
     price: {
       allowNull: false,
-      type: DataTypes.INTEGER
+      type: DataTypes.DECIMAL(9,2)
     },
     urlImage: {
       allowNull: false,
