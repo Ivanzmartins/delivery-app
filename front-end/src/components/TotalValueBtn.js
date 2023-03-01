@@ -1,9 +1,19 @@
 import React, { useContext, useEffect, useState } from 'react';
 import DeliveryContext from '../context/DeliveryContext';
+import { getLocalStorageItem } from '../services/localStorage';
 
 export default function TotalValueBtn() {
   const [totalValue, setTotalValue] = useState('');
-  const { cartProducts } = useContext(DeliveryContext);
+  const { cartProducts, setCartProducts } = useContext(DeliveryContext);
+
+  useEffect(() => {
+    const getItemsFromStorage = () => {
+      const getFromStorage = getLocalStorageItem('carrinho');
+      if (getFromStorage) setCartProducts(getFromStorage);
+    };
+
+    getItemsFromStorage();
+  }, []);
 
   useEffect(() => {
     const getValuesFromStorage = () => {
@@ -15,8 +25,9 @@ export default function TotalValueBtn() {
         const treatValue = value.toFixed(2).replace('.', ',');
         setTotalValue(treatValue);
       } else {
+        console.log(cartItems);
         const value = cartItems
-          .reduce((acc, curr) => Number(acc.price) + Number(curr.price));
+          .reduce((acc, curr) => acc + Number(curr.price), 0);
         console.log(value);
         const treatValue = value.toFixed(2).replace('.', ',');
         setTotalValue(treatValue);
