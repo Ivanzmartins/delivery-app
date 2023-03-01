@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import {
   addLocalStorageCartItem,
   rmLocalStorageCartItem,
 } from '../services/localStorage';
+import DeliveryContext from '../context/DeliveryContext';
 
 export default function ProductsCard({ id, name, price, urlImage }) {
   const [count, setCount] = useState(0);
+  const { cartProducts, setCartProducts } = useContext(DeliveryContext);
 
   const item = {
     id,
@@ -19,6 +21,14 @@ export default function ProductsCard({ id, name, price, urlImage }) {
     const counter = count + 1;
     setCount(counter);
     addLocalStorageCartItem(item);
+    setCartProducts([...cartProducts, item]);
+  };
+
+  const rmContextItem = () => {
+    const itemIndex = cartProducts.findIndex((e) => e.id === item.id);
+    delete cartProducts[itemIndex];
+    const newItems = cartProducts.filter((e) => e !== null);
+    setCartProducts(newItems);
   };
 
   const rmItem = () => {
@@ -26,9 +36,11 @@ export default function ProductsCard({ id, name, price, urlImage }) {
     if (counter < 0) {
       setCount(0);
       rmLocalStorageCartItem(item);
+      rmContextItem();
     } else {
       setCount(counter);
       rmLocalStorageCartItem(item);
+      rmContextItem();
     }
   };
 
