@@ -14,33 +14,12 @@ export const getLocalStorageItem = (key) => {
 
 export const addLocalStorageCartItem = (item) => {
   const localStorageItems = getLocalStorageItem('carrinho');
-  const isThereOneInStorage = localStorageItems
-    .some((e) => e.productId === item.productId);
   if (!localStorageItems.length) {
     localStorageSaveItem('carrinho', [item]);
-  } else if (isThereOneInStorage) {
-    console.log('AQUI');
-    const newItems = localStorageItems
-      .map((e) => (e.productId === item.productId
-        ? { ...e, quantity: item.quantity, subTotal: item.subTotal }
-        : e));
-    localStorageSaveItem('carrinho', newItems);
   } else {
     localStorageSaveItem('carrinho', [...localStorageItems, item]);
   }
 };
-
-// export const rmLocalStorageCartItem = (item) => {
-//   const localStorageItems = getLocalStorageItem('carrinho');
-//   if (!localStorageItems) {
-//     localStorageSaveItem('carrinho', []);
-//   } else {
-//     const itemIndex = localStorageItems.findIndex((e) => e.id === item.id);
-//     delete localStorageItems[itemIndex];
-//     const newItems = localStorageItems.filter((e) => e !== null);
-//     localStorageSaveItem('carrinho', newItems);
-//   }
-// };
 
 export const rmLocalStorageCartItem = (item) => {
   const localStorageItems = getLocalStorageItem('carrinho');
