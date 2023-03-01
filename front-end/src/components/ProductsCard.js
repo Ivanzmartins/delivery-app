@@ -55,7 +55,7 @@ export default function ProductsCard({ id, name, price, urlImage }) {
 
   const rmItem = () => {
     const counter = count - 1;
-    if (counter < 0) {
+    if (counter <= 0) {
       setCount(0);
       rmLocalStorageCartItem(item);
       rmContextItem();
