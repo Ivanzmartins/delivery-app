@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
 
 import DeliveryContext from './DeliveryContext';
@@ -11,10 +11,11 @@ export default function DeliveryProvider({ children }) {
     token: '',
   };
   const [userInfos, setUserInfos] = useState(INITIAL_STATE);
+  const [cartProducts, setCartProducts] = useState([]);
 
   const contextValue = useMemo(() => ({
-    userInfos, setUserInfos,
-  }), [userInfos]);
+    userInfos, setUserInfos, cartProducts, setCartProducts,
+  }), [userInfos, cartProducts]);
 
   return (
     <DeliveryContext.Provider value={ contextValue }>

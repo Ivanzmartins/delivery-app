@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import DeliveryContext from '../context/DeliveryContext';
+import { localStorageSaveItem } from '../services/localStorage';
 import { requestLogin, setToken } from '../services/requests';
 
 export default function Login() {
@@ -7,15 +9,25 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const [failedToLogin, setFailedToLogin] = useState(false);
   const navigate = useNavigate();
+  const { setUserInfos } = useContext(DeliveryContext);
 
   const login = async (event) => {
     event.preventDefault();
 
     try {
-      const token = await requestLogin('/login', { email, password });
-      setToken(token);
-      localStorage.setItem('token', token);
-      navigate('/');
+      const response = await requestLogin('/login', { email, password });
+      setToken(response.token);
+
+      const userDTO = {
+        name: response.name,
+        email: response.email,
+        role: response.role,
+        token: response.token,
+      };
+
+      localStorageSaveItem('userInfos', userDTO);
+      setUserInfos(userDTO);
+      navigate('/customer/products');
     } catch (error) {
       setFailedToLogin(true);
     }
