@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { localStorageSaveItem } from '../services/localStorage';
 import { apiPost } from '../services/requests';
 
@@ -9,6 +10,7 @@ export default function Register() {
   const [failedRegister, setFailedRegister] = useState(false);
   const [errorMessage, setErrorMessage] = useState('Erro ao cadastrar usuário.');
   const [isDisabled, setIsDisabled] = useState(true);
+  const navigate = useNavigate();
 
   const register = async (event) => {
     event.preventDefault();
@@ -27,9 +29,11 @@ export default function Register() {
         setErrorMessage(data.message);
       }
       localStorageSaveItem('token', data.token);
+      navigate('/customer/products');
     } catch (error) {
       console.log(error);
       setFailedRegister(true);
+      setErrorMessage(error.message);
     }
   };
 
