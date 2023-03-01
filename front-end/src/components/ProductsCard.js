@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import {
+  localStorageSaveItem,
   addLocalStorageCartItem,
   rmLocalStorageCartItem,
 } from '../services/localStorage';
@@ -28,24 +29,36 @@ export default function ProductsCard({ id, name, price, urlImage }) {
   }, []);
 
   const handleQuantity = (counter) => {
+    const updateSubTotal = counter * parseFloat(price);
+    const updatedQuantity = {
+      ...item, quantity: counter, subTotal: updateSubTotal.toFixed(2).replace('.', ','),
+    };
+    setItem(updatedQuantity);
+    return cartProducts.map((e) => (e.productId === updatedQuantity.productId
+      ? { ...e, quantity: updatedQuantity.quantity, subTotal: updatedQuantity.subTotal }
+      : e));
+  };
+
+  const updateProducts = (counter) => {
+    const isThereAnEqualProduct = cartProducts
+      .some((e) => e.productId === item.productId);
     if (!cartProducts.length) {
       addLocalStorageCartItem(item);
-      setCartProducts([...cartProducts, item]);
+      setCartProducts([item]);
+    } else if (isThereAnEqualProduct) {
+      const newItems = handleQuantity(counter);
+      localStorageSaveItem('carrinho', newItems);
+      setCartProducts(newItems);
     } else {
-      const updateSubTotal = counter * parseFloat(price);
-      const updateQuantity = {
-        ...item, quantity: counter, subTotal: updateSubTotal.toFixed(2).replace('.', ','),
-      };
-      setItem(updateQuantity);
-      addLocalStorageCartItem(updateQuantity);
-      setCartProducts([...cartProducts, updateQuantity]);
+      setCartProducts([...cartProducts, item]);
+      addLocalStorageCartItem(item);
     }
   };
 
   const addItem = () => {
     const counter = count + 1;
     setCount(counter);
-    handleQuantity(counter);
+    updateProducts(counter);
   };
 
   const rmContextItem = () => {
@@ -61,7 +74,7 @@ export default function ProductsCard({ id, name, price, urlImage }) {
       rmContextItem();
     } else {
       setCount(counter);
-      handleQuantity(counter);
+      updateProducts(counter);
     }
   };
 
