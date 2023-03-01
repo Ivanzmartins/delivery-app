@@ -21,12 +21,13 @@ export default function TotalValueBtn() {
       if (!cartItems.length) {
         setTotalValue('0,00');
       } else if (cartItems.length === 1) {
-        const value = cartItems[0].price;
+        const value = parseFloat(cartItems[0].subTotal);
         const treatValue = value.toFixed(2).replace('.', ',');
         setTotalValue(treatValue);
       } else {
         const value = cartItems
-          .reduce((acc, curr) => acc + Number(curr.price), 0);
+          .reduce((acc, curr) => acc + parseFloat(curr.subTotal.replace(',', '.')), 0);
+        console.log(value);
         const treatValue = value.toFixed(2).replace('.', ',');
         setTotalValue(treatValue);
       }
@@ -35,14 +36,16 @@ export default function TotalValueBtn() {
     getValuesFromStorage();
   }, [cartProducts]);
   return (
-    <div data-testid="customer_products__checkout-bottom-value">
+    <div>
       <button
         type="button"
         data-testid="customer_products__button-cart"
       >
         Ver Carrinho: R$
         {' '}
-        {totalValue}
+        <span data-testid="customer_products__checkout-bottom-value">
+          {totalValue}
+        </span>
       </button>
     </div>
   );
