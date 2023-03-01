@@ -25,10 +25,8 @@ export default function TotalValueBtn() {
         const treatValue = value.toFixed(2).replace('.', ',');
         setTotalValue(treatValue);
       } else {
-        console.log(cartItems);
         const value = cartItems
           .reduce((acc, curr) => acc + Number(curr.price), 0);
-        console.log(value);
         const treatValue = value.toFixed(2).replace('.', ',');
         setTotalValue(treatValue);
       }
