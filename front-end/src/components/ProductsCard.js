@@ -38,19 +38,19 @@ export default function ProductsCard({ id, name, price, urlImage }) {
 
   return (
     <div>
-      <p datatest-id={ `customer_products__element-card-title-${id}` }>
+      <p data-testid={ `customer_products__element-card-title-${id}` }>
         {name}
       </p>
-      <p datatest-id={ `customer_products__element-card-price-${id}` }>
+      <p data-testid={ `customer_products__element-card-price-${id}` }>
         {price}
       </p>
       <img
-        datatest-id={ `customer_products__img-card-bg-image-${id}` }
+        data-testid={ `customer_products__img-card-bg-image-${id}` }
         src={ urlImage }
         alt={ name }
       />
       <button
-        datatest-id={ `customer_products__button-card-rm-item-${id}` }
+        data-testid={ `customer_products__button-card-rm-item-${id}` }
         type="button"
         onClick={ () => rmItem() }
       >
@@ -58,12 +58,12 @@ export default function ProductsCard({ id, name, price, urlImage }) {
       </button>
       <input
         type="text"
-        datatest-id={ `customer_products__input-card-quantity-${id}` }
+        data-testid={ `customer_products__input-card-quantity-${id}` }
         value={ count }
         onChange={ (event) => handleChange(event) }
       />
       <button
-        datatest-id={ `customer_products__button-card-add-item-${id}` }
+        data-testid={ `customer_products__button-card-add-item-${id}` }
         type="button"
         onClick={ () => addItem() }
       >

@@ -2,26 +2,32 @@ import React, { useEffect, useState } from 'react';
 import { getLocalStorageItem } from '../services/localStorage';
 
 export default function TotalValueBtn() {
-  const [totalValue, setTotalValue] = useState(0);
+  const [totalValue, setTotalValue] = useState('');
 
   useEffect(() => {
     const getValuesFromStorage = () => {
       const cartItems = getLocalStorageItem('carrinho');
-      const value = cartItems.reduce((acc, curr) => acc.price + curr.price, 0);
-      setTotalValue(value);
+      if (cartItems) {
+        const value = cartItems
+          .reduce((acc, curr) => Number(acc.price) + Number(curr.price));
+        const treatValue = value.toFixed(2).replace('.', ',');
+        setTotalValue(treatValue);
+      } else {
+        setTotalValue('0,00');
+      }
     };
 
     getValuesFromStorage();
   }, []);
   return (
-    <div datatest-id="customer_products__checkout-bottom-value">
+    <div data-testid="customer_products__checkout-bottom-value">
       <button
         type="button"
-        datatest-id="customer_products__button-cart"
+        data-testid="customer_products__button-cart"
       >
         Ver Carrinho: R$
         {' '}
-        {totalValue.toFixed(2).replace('.', ',')}
+        {totalValue}
       </button>
     </div>
   );
