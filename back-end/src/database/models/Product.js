@@ -14,9 +14,10 @@ const Product = (sequelize, DataTypes) => {
       allowNull: false,
       type: DataTypes.INTEGER
     },
-    url_image: {
+    urlImage: {
       allowNull: false,
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
+      field: 'url_image'
     },
     },
     { 
