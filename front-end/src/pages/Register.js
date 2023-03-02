@@ -21,14 +21,16 @@ export default function Register() {
     };
 
     try {
-      const STATUS_CREATED = 201;
+      const response = await apiPost('/register', registerInfos);
 
-      const { data, status } = await apiPost('/register', registerInfos);
-      if (status !== STATUS_CREATED) { // axios n permite cair nessa condicional, qualquer status de erro vai pro catch
-        setFailedRegister(true);
-        setErrorMessage(data.message);
-      }
-      localStorageSaveItem('token', data.token);
+      const userDTO = {
+        name: response.name,
+        email: response.email,
+        role: response.role,
+        token: response.token,
+      };
+
+      localStorageSaveItem('user', userDTO);
       navigate('/customer/products');
     } catch (error) {
       console.log(error); // error.response
