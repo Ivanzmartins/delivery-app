@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DeliveryContext from '../context/DeliveryContext';
 import { localStorageSaveItem } from '../services/localStorage';
@@ -30,12 +30,10 @@ export default function Login() {
       navigate('/customer/products');
     } catch (error) {
       setFailedToLogin(true);
+      setEmail('');
+      setPassword('');
     }
   };
-
-  useEffect(() => {
-    setFailedToLogin(false);
-  }, [email, password]);
 
   const handleEmail = (em) => {
     const emailRegex = /\S+@\S+\.\S+/;
