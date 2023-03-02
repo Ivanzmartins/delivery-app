@@ -14,13 +14,14 @@ export default function ProductsCard({ id, name, price, urlImage }) {
 
   useEffect(() => {
     const getItem = () => {
+      const subTotal = Number(price).toFixed(2).replace('.', ',');
       const itemDTO = {
         productId: id,
         name,
         unitPrice: price,
         urlImage,
         quantity: 1,
-        subTotal: price,
+        subTotal,
       };
 
       setItem(itemDTO);
@@ -34,6 +35,7 @@ export default function ProductsCard({ id, name, price, urlImage }) {
       ...item, quantity: counter, subTotal: updateSubTotal.toFixed(2).replace('.', ','),
     };
     setItem(updatedQuantity);
+    if (!cartProducts.length) return updatedQuantity;
     return cartProducts.map((e) => (e.productId === updatedQuantity.productId
       ? { ...e, quantity: updatedQuantity.quantity, subTotal: updatedQuantity.subTotal }
       : e));
@@ -43,8 +45,9 @@ export default function ProductsCard({ id, name, price, urlImage }) {
     const isThereAnEqualProduct = cartProducts
       .some((e) => e.productId === item.productId);
     if (!cartProducts.length) {
-      addLocalStorageCartItem(item);
-      setCartProducts([item]);
+      const updateQauntity = handleQuantity(counter);
+      addLocalStorageCartItem(updateQauntity);
+      setCartProducts([updateQauntity]);
     } else if (isThereAnEqualProduct) {
       const newItems = handleQuantity(counter);
       localStorageSaveItem('carrinho', newItems);
@@ -79,9 +82,15 @@ export default function ProductsCard({ id, name, price, urlImage }) {
   };
 
   const handleChange = ({ value }) => {
-    const valueToNumber = +value;
-    if (value <= 0) {
+    const valueToNumber = Number(value);
+    console.log(typeof valueToNumber);
+    if (valueToNumber <= 0 || value === '') {
       rmLocalStorageCartItem(item);
+      setItem((prevValues) => ({
+        ...prevValues,
+        subTotal: item.unitPrice,
+
+      }));
       rmContextItem();
       setCount(0);
     } else {
@@ -99,7 +108,7 @@ export default function ProductsCard({ id, name, price, urlImage }) {
         R$
         {' '}
         <span data-testid={ `customer_products__element-card-price-${id}` }>
-          {price.replace('.', ',')}
+          {item.subTotal}
         </span>
       </p>
       <img
