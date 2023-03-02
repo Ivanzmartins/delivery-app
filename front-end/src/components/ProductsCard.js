@@ -78,8 +78,16 @@ export default function ProductsCard({ id, name, price, urlImage }) {
     }
   };
 
-  const handleChange = (event) => {
-    event.preventDefault();
+  const handleChange = ({ value }) => {
+    const valueToNumber = +value;
+    if (value <= 0) {
+      rmLocalStorageCartItem(item);
+      rmContextItem();
+      setCount(0);
+    } else {
+      setCount(valueToNumber);
+      updateProducts(valueToNumber);
+    }
   };
 
   return (
@@ -110,7 +118,7 @@ export default function ProductsCard({ id, name, price, urlImage }) {
         type="text"
         data-testid={ `customer_products__input-card-quantity-${id}` }
         value={ count }
-        onChange={ (event) => handleChange(event) }
+        onChange={ ({ target }) => handleChange(target) }
       />
       <button
         data-testid={ `customer_products__button-card-add-item-${id}` }
