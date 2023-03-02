@@ -11,11 +11,7 @@ chai.use(chaiHttp);
 describe('Teste da rota /login', () => {
   describe('POST', () => {
 
-    beforeEach(async () => {
-     /*  sinon.stub(User, "findOne")
-			.onCall(0).resolves(mockUser)
-			.onCall(1).resolves(null); */
-    })
+    beforeEach(async () => {})
     afterEach(()=>{
       sinon.restore();
     })
