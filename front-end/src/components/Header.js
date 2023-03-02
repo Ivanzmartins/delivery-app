@@ -1,14 +1,14 @@
 import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DeliveryContext from '../context/DeliveryContext';
-import { localStorageSaveItem } from '../services/localStorage';
+// import { localStorageSaveItem } from '../services/localStorage';
 
 export default function Header() {
   const { userInfos } = useContext(DeliveryContext);
   const navigate = useNavigate();
 
   const logout = () => {
-    localStorageSaveItem('user');
+    localStorage.removeItem('user');
     navigate('/login');
   };
 
