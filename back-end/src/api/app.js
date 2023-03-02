@@ -13,9 +13,7 @@ app.use(cors());
 
 app.get('/coffee', (_req, res) => res.status(418).end());
 
-app.use('/images', express.static(path.join(__dirname, '..', 'images'))); 
-// o express.static serve para servir arquivos estáticos (imagens, css, js, etc). O path.join serve para juntar o caminho do diretório atual com o caminho do diretório das imagens.
-
+app.use('/images', express.static(path.join(__dirname, '..', 'images')));
 app.use('/login', loginRouter);
 
 app.use('/register', registerRouter);

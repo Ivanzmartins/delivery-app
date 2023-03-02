@@ -50,7 +50,7 @@ module.exports = {
         field: 'sale_date'
       },
       status: {
-        type: Sequelize.STRING,
+        type: Sequelize.ENUM('Pendente', 'Preparando', 'Em trânsito', 'Entregue'),
         allowNull: false,
       }
     });
