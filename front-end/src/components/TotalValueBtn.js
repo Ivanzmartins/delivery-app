@@ -26,13 +26,14 @@ export default function TotalValueBtn() {
         setTotalValue('0,00');
         setIsDisabled(true);
       } else if (cartItems.length === 1) {
-        const value = parseFloat(cartItems[0].subTotal);
-        const treatValue = value.toFixed(2).replace('.', ',');
-        setTotalValue(treatValue);
+        const value = cartItems[0].subTotal;
+        setTotalValue(value);
         setIsDisabled(false);
       } else {
-        const value = cartItems
-          .reduce((acc, curr) => acc + parseFloat(curr.subTotal.replace(',', '.')), 0);
+        const treatPorducts = cartItems
+          .map((e) => ({ ...e, subTotal: e.subTotal.replace(',', '.') }));
+        const value = treatPorducts
+          .reduce((acc, curr) => acc + parseFloat(curr.subTotal), 0);
         console.log(value);
         const treatValue = value.toFixed(2).replace('.', ',');
         setTotalValue(treatValue);
@@ -44,7 +45,7 @@ export default function TotalValueBtn() {
   }, [cartProducts]);
 
   const checkOut = () => {
-    navigate('/checkout');
+    navigate('/customer/checkout');
   };
 
   return (
