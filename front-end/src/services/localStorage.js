@@ -6,11 +6,15 @@ export const localStorageSaveItem = (key, value) => {
   }
 };
 
-export const getLocalStorageItem = (key) => JSON.parse(localStorage.getItem(key));
+export const getLocalStorageItem = (key) => {
+  const checkStorage = localStorage.getItem(key);
+  if (!checkStorage && key === 'carrinho') localStorageSaveItem(key, []);
+  return JSON.parse(localStorage.getItem(key));
+};
 
 export const addLocalStorageCartItem = (item) => {
   const localStorageItems = getLocalStorageItem('carrinho');
-  if (!localStorageItems) {
+  if (!localStorageItems.length) {
     localStorageSaveItem('carrinho', [item]);
   } else {
     localStorageSaveItem('carrinho', [...localStorageItems, item]);
@@ -22,9 +26,7 @@ export const rmLocalStorageCartItem = (item) => {
   if (!localStorageItems) {
     localStorageSaveItem('carrinho', []);
   } else {
-    const itemIndex = localStorageItems.findIndex((e) => e.id === item.id);
-    delete localStorageItems[itemIndex];
-    const newItems = localStorageItems.filter((e) => e !== null);
-    localStorageSaveItem('carrinho', newItems);
+    const removeItem = localStorageItems.filter((e) => e.id !== item.id);
+    localStorageSaveItem('carrinho', removeItem);
   }
 };
