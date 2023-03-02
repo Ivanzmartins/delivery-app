@@ -25,7 +25,7 @@ export default function Login() {
         token: response.token,
       };
 
-      localStorageSaveItem('userInfos', userDTO);
+      localStorageSaveItem('user', userDTO);
       setUserInfos(userDTO);
       navigate('/customer/products');
     } catch (error) {
