@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DeliveryContext from '../context/DeliveryContext';
 import { localStorageSaveItem } from '../services/localStorage';
@@ -30,21 +30,19 @@ export default function Login() {
       navigate('/customer/products');
     } catch (error) {
       setFailedToLogin(true);
+      setEmail('');
+      setPassword('');
     }
   };
 
-  useEffect(() => {
-    setFailedToLogin(true);
-  }, [email, password]);
-
   const handleEmail = (em) => {
-    const emailRegex = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
+    const emailRegex = /\S+@\S+\.\S+/;
     return emailRegex.test(em);
   };
 
   const handlePassword = (senha) => {
     const minLength = 6;
-    return senha.length > minLength;
+    return senha.length >= minLength;
   };
 
   return (
@@ -87,9 +85,9 @@ export default function Login() {
         </button>
       </form>
       {
-        failedToLogin ?? (
+        failedToLogin ? (
           <p data-testid="common_login__element-invalid-email">Email ou senha inválido</p>
-        )
+        ) : null
       }
     </>
   );
