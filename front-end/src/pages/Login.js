@@ -34,17 +34,17 @@ export default function Login() {
   };
 
   useEffect(() => {
-    setFailedToLogin(true);
+    setFailedToLogin(false);
   }, [email, password]);
 
   const handleEmail = (em) => {
-    const emailRegex = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
+    const emailRegex = /\S+@\S+\.\S+/;
     return emailRegex.test(em);
   };
 
   const handlePassword = (senha) => {
     const minLength = 6;
-    return senha.length > minLength;
+    return senha.length >= minLength;
   };
 
   return (
@@ -87,9 +87,9 @@ export default function Login() {
         </button>
       </form>
       {
-        failedToLogin ?? (
+        failedToLogin ? (
           <p data-testid="common_login__element-invalid-email">Email ou senha inválido</p>
-        )
+        ) : null
       }
     </>
   );
