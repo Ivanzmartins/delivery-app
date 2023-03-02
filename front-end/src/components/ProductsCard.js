@@ -91,7 +91,7 @@ export default function ProductsCard({ id, name, price, urlImage }) {
         R$
         {' '}
         <span data-testid={ `customer_products__element-card-price-${id}` }>
-          {price}
+          {price.replace('.', ',')}
         </span>
       </p>
       <img
