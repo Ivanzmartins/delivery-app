@@ -8,7 +8,7 @@ export default function Header() {
   const navigate = useNavigate();
 
   const logout = () => {
-    localStorageSaveItem('user', {});
+    localStorageSaveItem('user');
     navigate('/login');
   };
 
@@ -39,7 +39,7 @@ export default function Header() {
           <li>
             <button
               type="button"
-              onClick={ logout }
+              onClick={ () => logout() }
               data-testid="customer_products__element-navbar-link-logout"
             >
               Sair
