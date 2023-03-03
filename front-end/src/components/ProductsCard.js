@@ -100,42 +100,49 @@ export default function ProductsCard({ id, name, price, urlImage }) {
   };
 
   return (
-    <div>
-      <p data-testid={ `customer_products__element-card-title-${id}` }>
+    <div className="product-card">
+      <img
+        data-testid={ `customer_products__img-card-bg-image-${id}` }
+        src={ urlImage }
+        alt={ name }
+      />
+
+      <p
+        data-testid={ `customer_products__element-card-title-${id}` }
+        className="product-name"
+      >
         {name}
       </p>
-      <p>
+      <p className="product-price">
         R$
         {' '}
         <span data-testid={ `customer_products__element-card-price-${id}` }>
           {item.subTotal}
         </span>
       </p>
-      <img
-        data-testid={ `customer_products__img-card-bg-image-${id}` }
-        src={ urlImage }
-        alt={ name }
-      />
-      <button
-        data-testid={ `customer_products__button-card-rm-item-${id}` }
-        type="button"
-        onClick={ () => rmItem() }
-      >
-        -
-      </button>
-      <input
-        type="text"
-        data-testid={ `customer_products__input-card-quantity-${id}` }
-        value={ count }
-        onChange={ ({ target }) => handleChange(target) }
-      />
-      <button
-        data-testid={ `customer_products__button-card-add-item-${id}` }
-        type="button"
-        onClick={ () => addItem() }
-      >
-        +
-      </button>
+
+      <div className="counter-area">
+        <button
+          data-testid={ `customer_products__button-card-rm-item-${id}` }
+          type="button"
+          onClick={ () => rmItem() }
+        >
+          -
+        </button>
+        <input
+          type="text"
+          data-testid={ `customer_products__input-card-quantity-${id}` }
+          value={ count }
+          onChange={ ({ target }) => handleChange(target) }
+        />
+        <button
+          data-testid={ `customer_products__button-card-add-item-${id}` }
+          type="button"
+          onClick={ () => addItem() }
+        >
+          +
+        </button>
+      </div>
     </div>
 
   );
