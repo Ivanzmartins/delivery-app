@@ -41,6 +41,7 @@ export default function Header() {
         <ul>
           <li
             data-testid="customer_products__element-navbar-user-full-name"
+            className="user-name-header"
           >
             {name}
 
@@ -49,6 +50,7 @@ export default function Header() {
             <button
               type="button"
               onClick={ () => logout() }
+              className="logout-button"
               data-testid="customer_products__element-navbar-link-logout"
             >
               Sair
