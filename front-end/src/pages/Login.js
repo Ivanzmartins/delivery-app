@@ -90,7 +90,13 @@ export default function Login() {
       </form>
       {
         failedToLogin ? (
-          <p data-testid="common_login__element-invalid-email">Email ou senha inválido</p>
+          <p
+            data-testid="common_login__element-invalid-email"
+            className="login-error"
+          >
+            Email ou senha inválido
+
+          </p>
         ) : null
       }
     </main>

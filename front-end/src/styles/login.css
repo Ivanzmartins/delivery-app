@@ -1,6 +1,9 @@
 .login-container {
-  display: grid;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
   height: 100vh;
+  justify-content: center;
   place-items: center;
 }
 
@@ -63,4 +66,8 @@ label p {
 .register-button:hover {
   cursor: pointer;
   opacity: 0.8;
+}
+
+.login-error {
+  color: #878787;
 }
