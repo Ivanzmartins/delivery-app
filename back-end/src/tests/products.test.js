@@ -17,7 +17,7 @@ describe('Teste da rota /products', () => {
       sinon.restore();
     })
 
-    it('Os produtos devem ser retornardos', async () => {
+    it('Os produtos devem ser retornados', async () => {
       sinon.stub(Product, "findAll").resolves(productsList)
       const response = await chai.request(app).get('/products').send();
 
@@ -29,7 +29,7 @@ describe('Teste da rota /products', () => {
       const response = await chai.request(app).get('/products/1').send();
 
       expect(response.status).to.equal(200);
-      expect(response.body).to.deep.equal(productsList[0]);
+      expect(response.body).to.be.deep.equal(productsList[0]);
     })
   });
 });
