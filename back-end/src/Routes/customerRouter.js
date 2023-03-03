@@ -5,8 +5,8 @@ const customerRouter = express.Router();
 
 customerRouter.post('/', customerController.createOrder);
 
-customerRouter.get('/', customerController.getAllCustomerOrders);
+customerRouter.get('/orders', customerController.getAllCustomerOrders);
 
-customerRouter.get('/:saleId', customerController.getCustomerOrderById);
+customerRouter.get('/orders/:saleId', customerController.getCustomerOrderById);
 
 module.exports = customerRouter;
