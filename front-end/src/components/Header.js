@@ -16,6 +16,14 @@ export default function Header() {
     getName();
   }, []);
 
+  const goToProducts = () => {
+    navigate('/customer/products');
+  };
+
+  const goToOrders = () => {
+    navigate('/customer/orders');
+  };
+
   const logout = () => {
     localStorage.removeItem('user');
     navigate('/login');
@@ -25,16 +33,25 @@ export default function Header() {
     <header className="header-container">
       <nav className="nav-bar">
         <ul>
-          <li
-            data-testid="customer_products__element-navbar-link-products"
-          >
-            Produtos
-
+          <li>
+            <button
+              type="button"
+              onClick={ () => goToProducts() }
+              className="products-button"
+              data-testid="customer_products__element-navbar-link-products"
+            >
+              Produtos
+            </button>
           </li>
-          <li
-            data-testid="customer_products__element-navbar-link-orders"
-          >
-            Meus Pedidos
+          <li>
+            <button
+              type="button"
+              onClick={ () => goToOrders() }
+              className="orders-button"
+              data-testid="customer_products__element-navbar-link-orders"
+            >
+              Meus Pedidos
+            </button>
 
           </li>
         </ul>
