@@ -7,6 +7,7 @@ const registerRouter = require('../Routes/registerRouter');
 const productsRouter = require('../Routes/productsRouter');
 const userRouter = require('../Routes/userRouter');
 const customerRouter = require('../Routes/customerRouter');
+const sellerRouter = require('../Routes/sellerRouter');
 
 const app = express();
 app.use(express.json());
@@ -20,8 +21,11 @@ app.use('/login', loginRouter);
 app.use('/register', registerRouter);
 
 app.use('/customer/products', productsRouter);
+
 app.use('/user', userRouter);
 
 app.use('/customer', customerRouter);
+
+app.use('/seller', sellerRouter);
 
 module.exports = app;
