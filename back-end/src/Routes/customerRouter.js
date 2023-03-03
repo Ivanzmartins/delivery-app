@@ -3,7 +3,7 @@ const customerController = require('../Controller/customerController');
 
 const customerRouter = express.Router();
 
-customerRouter.post('/', customerController.createOrder);
+customerRouter.post('/checkout', customerController.createOrder);
 
 customerRouter.get('/orders', customerController.getAllCustomerOrders);
 
