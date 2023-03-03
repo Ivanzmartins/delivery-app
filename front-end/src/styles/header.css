@@ -21,6 +21,28 @@ button {
   list-style: none;
 }
 
+.products-orders-button {
+  background-color: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-weight: 400;
+  padding: 20px 10px;
+  text-align: center;
+  width: 150px;
+}
+
+.product-order-active {
+  background-color: var(--secondary-color);
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-weight: 500;
+  padding: 20px 10px;
+  text-align: center;
+  width: 150px;
+}
+
 .user-name-header {
   background-color: var(--third-color);
   padding: 20px 10px;

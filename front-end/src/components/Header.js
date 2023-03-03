@@ -1,19 +1,30 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { getLocalStorageItem } from '../services/localStorage';
 
 import '../styles/header.css';
 
 export default function Header() {
   const [name, setName] = useState('Nome da Pessoa.');
+  const [productButton, setProductButton] = useState('products-orders-button');
+  const [orderButton, setOrderButton] = useState('products-orders-button');
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const getName = () => {
       const userInfo = getLocalStorageItem('user');
       setName(userInfo.name);
     };
+
+    const getPathName = () => {
+      const { pathname } = location;
+      if (pathname.includes('products')) setProductButton('product-order-active');
+      if (pathname.includes('order')) setOrderButton('product-order-active');
+    };
+
     getName();
+    getPathName();
   }, []);
 
   const goToProducts = () => {
@@ -37,7 +48,7 @@ export default function Header() {
             <button
               type="button"
               onClick={ () => goToProducts() }
-              className="products-button"
+              className={ productButton }
               data-testid="customer_products__element-navbar-link-products"
             >
               Produtos
@@ -47,7 +58,7 @@ export default function Header() {
             <button
               type="button"
               onClick={ () => goToOrders() }
-              className="orders-button"
+              className={ orderButton }
               data-testid="customer_products__element-navbar-link-orders"
             >
               Meus Pedidos
