@@ -13,7 +13,7 @@ export default function Products() {
   useEffect(() => {
     const getProducts = async () => {
       try {
-        const products = await apiGetAll('/products');
+        const products = await apiGetAll('/customer/products');
         setAllProducts(products);
       } catch (error) {
         console.log(error);
