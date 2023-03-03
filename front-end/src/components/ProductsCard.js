@@ -65,7 +65,8 @@ export default function ProductsCard({ id, name, price, urlImage }) {
   };
 
   const rmContextItem = () => {
-    const removeItem = cartProducts.filter((e) => e.id !== item.productId);
+    const removeItem = cartProducts.filter((e) => e.productId !== item.productId);
+    console.log(removeItem);
     setCartProducts(removeItem);
   };
 
