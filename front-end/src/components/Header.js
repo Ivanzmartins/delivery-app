@@ -1,11 +1,20 @@
-import React, { useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import DeliveryContext from '../context/DeliveryContext';
-// import { localStorageSaveItem } from '../services/localStorage';
+import { getLocalStorageItem } from '../services/localStorage';
+
+import '../styles/header.css';
 
 export default function Header() {
-  const { userInfos } = useContext(DeliveryContext);
+  const [name, setName] = useState('Nome da Pessoa.');
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const getName = () => {
+      const userInfo = getLocalStorageItem('user');
+      setName(userInfo.name);
+    };
+    getName();
+  }, []);
 
   const logout = () => {
     localStorage.removeItem('user');
@@ -13,8 +22,8 @@ export default function Header() {
   };
 
   return (
-    <section>
-      <nav>
+    <header className="header-container">
+      <nav className="nav-bar">
         <ul>
           <li
             data-testid="customer_products__element-navbar-link-products"
@@ -33,7 +42,7 @@ export default function Header() {
           <li
             data-testid="customer_products__element-navbar-user-full-name"
           >
-            {userInfos.name}
+            {name}
 
           </li>
           <li>
@@ -47,6 +56,6 @@ export default function Header() {
           </li>
         </ul>
       </nav>
-    </section>
+    </header>
   );
 }
