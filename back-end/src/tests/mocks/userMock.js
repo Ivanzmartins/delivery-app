@@ -3,6 +3,11 @@ const mockUser = {
   password: '3c28d2b0881bf46457a853e0b07531c6' // fulana@123
 }
 
+const mockSeller = {
+  id: '1',
+  name: 'Fulana Pereira'
+}
+
 const mockRegister = {
   name: 'Cliente Zé Birita',
   email: 'zebirita@email.com',
@@ -24,6 +29,7 @@ const mockNewRegister = {
 
 module.exports = { 
   mockUser,
+  mockSeller,
   mockRegister,
   newRegister,
   mockNewRegister,
