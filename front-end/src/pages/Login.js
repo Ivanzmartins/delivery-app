@@ -4,6 +4,8 @@ import DeliveryContext from '../context/DeliveryContext';
 import { localStorageSaveItem } from '../services/localStorage';
 import { requestLogin, setToken } from '../services/requests';
 
+import '../styles/login.css';
+
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -46,10 +48,10 @@ export default function Login() {
   };
 
   return (
-    <>
-      <form>
+    <main className="login-container">
+      <form className="login-form">
         <label htmlFor="email">
-          Login
+          <p>Login</p>
           <input
             data-testid="common_login__input-email"
             type="email"
@@ -59,7 +61,7 @@ export default function Login() {
           />
         </label>
         <label htmlFor="senha">
-          Senha
+          <p>Senha</p>
           <input
             data-testid="common_login__input-password"
             type="password"
@@ -70,6 +72,7 @@ export default function Login() {
         </label>
         <button
           data-testid="common_login__button-login"
+          className="login-button"
           type="button"
           disabled={ !(handleEmail(email) && handlePassword(password)) }
           onClick={ (event) => login(event) }
@@ -79,6 +82,7 @@ export default function Login() {
         <button
           data-testid="common_login__button-register"
           onClick={ () => navigate('/register') }
+          className="register-button"
           type="button"
         >
           Ainda não tenho conta
@@ -89,6 +93,6 @@ export default function Login() {
           <p data-testid="common_login__element-invalid-email">Email ou senha inválido</p>
         ) : null
       }
-    </>
+    </main>
   );
 }
