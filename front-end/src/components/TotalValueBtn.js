@@ -49,19 +49,18 @@ export default function TotalValueBtn() {
   };
 
   return (
-    <div>
-      <button
-        type="button"
-        onClick={ () => checkOut() }
-        disabled={ isDisabled }
-        data-testid="customer_products__button-cart"
-      >
-        Ver Carrinho: R$
-        {' '}
-        <span data-testid="customer_products__checkout-bottom-value">
-          {totalValue}
-        </span>
-      </button>
-    </div>
+    <button
+      type="button"
+      onClick={ () => checkOut() }
+      disabled={ isDisabled }
+      className="total-button"
+      data-testid="customer_products__button-cart"
+    >
+      Ver Carrinho: R$
+      {' '}
+      <span data-testid="customer_products__checkout-bottom-value">
+        {totalValue}
+      </span>
+    </button>
   );
 }
