@@ -29,19 +29,21 @@ export default function Products() {
   return (
     <>
       <Header />
-      <main className="products-container">
-        { !failedRequest ? allProducts
-          .map(({ id, name, price, urlImage }) => (
-            <div key={ id }>
-              <ProductsCard
-                id={ id }
-                name={ name }
-                price={ price }
-                urlImage={ urlImage }
-              />
-            </div>
-          ))
-          : (<p>{errorMessage}</p>)}
+      <main className="main-products">
+        <section className="products-container">
+          { !failedRequest ? allProducts
+            .map(({ id, name, price, urlImage }) => (
+              <div key={ id }>
+                <ProductsCard
+                  id={ id }
+                  name={ name }
+                  price={ price }
+                  urlImage={ urlImage }
+                />
+              </div>
+            ))
+            : (<p>{errorMessage}</p>)}
+        </section>
         <TotalValueBtn />
       </main>
     </>
