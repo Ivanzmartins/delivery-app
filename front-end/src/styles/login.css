@@ -2,6 +2,7 @@
   align-items: center;
   display: flex;
   flex-direction: column;
+  gap: 3px;
   height: 100vh;
   justify-content: center;
   place-items: center;
@@ -9,6 +10,7 @@
 
 .login-form {
   background-color: var(--login-background);
+  border: 1px solid #abb8b5;
   display: flex;
   flex-direction: column;
   gap: 10px;
