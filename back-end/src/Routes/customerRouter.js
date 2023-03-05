@@ -1,5 +1,6 @@
 const express = require('express');
 const customerController = require('../Controller/customerController');
+const productsController = require('../Controller/productsController');
 const { salesInfosValid, productsValid } = require('../middlewares/orderMiddleware');
 
 const customerRouter = express.Router();
@@ -9,5 +10,9 @@ customerRouter.post('/checkout', salesInfosValid, productsValid, customerControl
 customerRouter.get('/orders', customerController.getAllCustomerOrders);
 
 customerRouter.get('/orders/:saleId', customerController.getCustomerOrderById);
+
+customerRouter.get('/products', productsController.getAll);
+
+customerRouter.get('/products/:id', productsController.getById);
 
 module.exports = customerRouter;

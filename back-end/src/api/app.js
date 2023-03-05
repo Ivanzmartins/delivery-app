@@ -4,7 +4,6 @@ const path = require('path');
 
 const loginRouter = require('../Routes/loginRouter');
 const registerRouter = require('../Routes/registerRouter');
-const productsRouter = require('../Routes/productsRouter');
 const userRouter = require('../Routes/userRouter');
 const customerRouter = require('../Routes/customerRouter');
 const sellerRouter = require('../Routes/sellerRouter');
@@ -19,8 +18,6 @@ app.use('/images', express.static(path.join(__dirname, '..', 'images')));
 app.use('/login', loginRouter);
 
 app.use('/register', registerRouter);
-
-app.use('/customer/products', productsRouter);
 
 app.use('/user', userRouter);
 
