@@ -7,8 +7,6 @@ const saleSchema = Joi.object({
     totalPrice: Joi.number().required(),
     deliveryAddress: Joi.string().required(),
     deliveryNumber: Joi.string().required(),
-    saleDate: Joi.date().required(),
-    status: Joi.string().valid('Pendente', 'Pago', 'Enviado', 'Entregue').required(),
   }).required(),
   products: Joi.array().items(
     Joi.object({
