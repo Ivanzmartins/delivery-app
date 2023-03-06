@@ -6,6 +6,7 @@ export default function RegisterNewUser() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [role, setRole] = useState('');
+  const [isDisabled, setIsDisabled] = useState(true);
 
   useEffect(() => {
     const validateInputs = () => {
@@ -80,6 +81,7 @@ export default function RegisterNewUser() {
         <button
           type="submit"
           data-testid="admin_manage__button-register"
+          disabled={ isDisabled }
         >
           Cadastrar
 
