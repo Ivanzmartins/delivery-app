@@ -6,7 +6,7 @@ const registerService = async (name, email, password) => {
   const verifyName = await User.findOne({ where: { name } });
   const isPasswordValid = md5(password);
 
-  if (verifyEmail || verifyName) {
+  if (verifyEmail) {
     return { message: 'User already registered', type: 409 };
   }
   const newUser = await User.create({
