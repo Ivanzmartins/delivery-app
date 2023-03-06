@@ -1,28 +1,32 @@
-const salesInfosValid = (req, res, next) => {
-  const { saleInfos } = req.body;
-  if (!saleInfos) return res.status(400).json({ message: '"saleInfos" is required' });
-  const requiredFields = ['totalPrice', 'deliveryAddress', 'deliveryNumber', 'saleDate'];
-  if (!requiredFields.every((field) => saleInfos[field])) {
-    const missingFields = requiredFields.filter((field) => !saleInfos[field]);
-    return res.status(400).json({ message: `${missingFields.join(', ')} is required` });
+const Joi = require('joi');
+
+const saleSchema = Joi.object({
+  saleInfos: Joi.object({
+    userId: Joi.number().required(),
+    sellerId: Joi.number().required(),
+    totalPrice: Joi.number().required(),
+    deliveryAddress: Joi.string().required(),
+    deliveryNumber: Joi.string().required(),
+    saleDate: Joi.date().required(),
+    status: Joi.string().valid('Pendente', 'Pago', 'Enviado', 'Entregue').required(),
+  }).required(),
+  products: Joi.array().items(
+    Joi.object({
+      id: Joi.number().required(),
+      quantity: Joi.number().required(),
+    }),
+  ).required(),
+});
+
+const saleMiddleware = (req, res, next) => {
+  const { error } = saleSchema.validate(req.body);
+
+  if (error) {
+    const message = error.details.map((detail) => detail.message).join(', ');
+    res.status(400).json({ error: message });
+  } else {
+    next();
   }
-  return next();
 };
 
-const productsValid = (req, res, next) => {
-  const { products } = req.body;
-  if (!products) return res.status(400).json({ message: '"products" is required' });
-  if (!Array.isArray(products)) {
-    return res.status(400).json({ message: '"products" must be an array' });
-  }
-  if (products.length === 0) return res.status(400).json({ message: 'No product found' });
-  const requiredFields = ['id', 'quantity'];
-  if (!products.every((product) => requiredFields.every((field) => product[field]))) {
-    return res.status(400).json({ message: 'id or quantity not found' });
-  }
-  return next();
-};
-module.exports = {
-  salesInfosValid,
-  productsValid,
-};
+module.exports = { saleMiddleware };
