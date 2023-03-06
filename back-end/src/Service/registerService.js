@@ -14,7 +14,7 @@ const registerService = async (name, email, password) => {
     email,
     password: isPasswordValid,
     role: 'customer',
-   });
+  });
 
   return { type: 201, message: newUser };
 };

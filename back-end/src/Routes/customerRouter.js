@@ -1,11 +1,11 @@
 const express = require('express');
 const customerController = require('../Controller/customerController');
 const productsController = require('../Controller/productsController');
-const { salesInfosValid, productsValid } = require('../middlewares/orderMiddleware');
+const { saleMiddleware } = require('../middlewares/orderMiddleware');
 
 const customerRouter = express.Router();
 
-customerRouter.post('/checkout', salesInfosValid, productsValid, customerController.createOrder);
+customerRouter.post('/checkout', saleMiddleware, customerController.createOrder);
 
 customerRouter.get('/orders', customerController.getAllCustomerOrders);
 

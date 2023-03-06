@@ -1,5 +1,5 @@
 const SalesProducts = (sequelize, DataTypes) => {
-  const SalesProducts = sequelize.define("sales_products", {
+  const SalesProducts = sequelize.define("SalesProducts", {
     saleId: {
       allowNull: false,
       primaryKey: true,
@@ -10,9 +10,9 @@ const SalesProducts = (sequelize, DataTypes) => {
       primaryKey: true,
       type: DataTypes.INTEGER
     },
-    email: {
+    quantity: {
       allowNull: false,
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
     },
     },
     { 
@@ -39,5 +39,5 @@ const SalesProducts = (sequelize, DataTypes) => {
   
   return SalesProducts;
 }
-  
-module.exports = SalesProducts; 
+
+module.exports = SalesProducts;
