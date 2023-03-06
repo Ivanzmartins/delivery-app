@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import OrdersCard from '../components/OrdersCard';
-import { apiGetAll } from '../services/requests';
+import { getLocalStorageItem } from '../services/localStorage';
+import { apiGetAllWithBody } from '../services/requests';
 
 export default function Orders() {
   const [allOrders, setAllOrders] = useState([]);
@@ -10,7 +11,9 @@ export default function Orders() {
 
   const getOrders = async () => {
     try {
-      const orders = await apiGetAll('/customer/orders');
+      const { email } = getLocalStorageItem('user');
+      const orders = await apiGetAllWithBody('/customer/orders', { email });
+      console.log(orders);
       setAllOrders(orders);
     } catch (error) {
       console.log(error);
