@@ -50,7 +50,7 @@ export default function RegisterNewUser() {
         <h4
           data-testid="admin_manage__element-invalid-register"
         >
-          Erro ao registrar usuário;
+          Erro ao registrar usuário.
 
         </h4>
       )}
