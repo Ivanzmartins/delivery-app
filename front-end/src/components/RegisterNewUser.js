@@ -8,6 +8,7 @@ export default function RegisterNewUser() {
   const [password, setPassword] = useState('');
   const [role, setRole] = useState('seller');
   const [isDisabled, setIsDisabled] = useState(true);
+  const [isError, setIsError] = useState(false);
 
   const { setUserOfDB } = useContext(DeliveryContext);
 
@@ -39,11 +40,20 @@ export default function RegisterNewUser() {
       setUserOfDB((prevState) => [...prevState, responde]);
     } catch (error) {
       console.log(error); // error.response
+      setIsError(true);
     }
   };
 
   return (
     <form onSubmit={ (event) => register(event) }>
+      {isError && (
+        <h4
+          data-testid="admin_manage__element-invalid-register"
+        >
+          Erro ao registrar usuário;
+
+        </h4>
+      )}
       <fieldset>
         <label htmlFor="name-toregister">
           Nome
