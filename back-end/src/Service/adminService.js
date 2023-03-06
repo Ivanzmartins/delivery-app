@@ -1,11 +1,6 @@
 const md5 = require('md5');
 const { User } = require('../database/models');
 
-const getAllUsers = async () => {
-  const products = await User.findAll();
-  return products;
-};
-
 const registerUserByAdm = async (name, email, password, role) => {
   const verifyEmail = await User.findOne({ where: { email } });
   const verifyName = await User.findOne({ where: { name } });
@@ -24,7 +19,17 @@ const registerUserByAdm = async (name, email, password, role) => {
   return { type: 201, message: newUser };
 };
 
+const deleteUser = async (id) => {
+  const user = await User.findByPk(id);
+  if (!user) return { code: 404, message: 'User does not exist' };
+  if (user.role === 'administrator') {
+    return ({ type: 401, message: 'Administrator can not be deleted' });
+  }
+  await user.destroy();
+  return { type: 204, message: '' };
+};
+
 module.exports = {
-  getAllUsers,
   registerUserByAdm,
+  deleteUser,
 };

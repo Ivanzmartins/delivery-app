@@ -1,11 +1,6 @@
 const adminService = require('../Service/adminService');
 const createToken = require('../Auth/jwt');
 
-const getAllUsers = async (_req, res) => {
-  const allUsers = await adminService.getAllUsers();
-  return res.status(200).json(allUsers);
-};
-
 const registerUserByAdm = async (req, res) => {
   const { name, email, password, role } = req.body;
     const newUser = await adminService.registerUserByAdm(name, email, password, role);
@@ -21,7 +16,13 @@ const registerUserByAdm = async (req, res) => {
     return res.status(type).json(finalUser);
 };
 
+const deleteUser = async (req, res) => {
+  const { id } = req.body;
+  const { type, message } = await adminService.deleteUser(id);
+  res.status(type).json(message);
+};
+
 module.exports = {
-  getAllUsers,
   registerUserByAdm,
+  deleteUser,
 };
