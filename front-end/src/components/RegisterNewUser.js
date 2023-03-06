@@ -36,7 +36,7 @@ export default function RegisterNewUser() {
         role,
       };
 
-      const responde = await apiPost('/register', registerInfos);
+      const responde = await apiPost('/admin/manage', registerInfos);
       setUserOfDB((prevState) => [...prevState, responde]);
     } catch (error) {
       console.log(error); // error.response

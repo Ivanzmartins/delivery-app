@@ -17,7 +17,7 @@ export default function DeliveryProvider({ children }) {
 
   useEffect(() => {
     const getUsers = async () => {
-      const users = await apiGetAll('/users');
+      const users = await apiGetAll('/user');
       setUsersOfDB([users]);
     };
     getUsers();
