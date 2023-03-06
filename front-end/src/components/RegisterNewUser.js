@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import DeliveryContext from '../context/DeliveryContext';
 import { apiPost } from '../services/requests';
 
 export default function RegisterNewUser() {
@@ -7,6 +8,8 @@ export default function RegisterNewUser() {
   const [password, setPassword] = useState('');
   const [role, setRole] = useState('seller');
   const [isDisabled, setIsDisabled] = useState(true);
+
+  const { setUserOfDB } = useContext(DeliveryContext);
 
   useEffect(() => {
     const validateInputs = () => {
@@ -32,7 +35,8 @@ export default function RegisterNewUser() {
         role,
       };
 
-      await apiPost('/register', registerInfos);
+      const responde = await apiPost('/register', registerInfos);
+      setUserOfDB((prevState) => [...prevState, responde]);
     } catch (error) {
       console.log(error); // error.response
     }
