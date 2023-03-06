@@ -14,6 +14,8 @@ export default function UsersTable() {
     getUsers();
   }, [usersOfDB]);
 
+  // console.log(users);
+
   return (
     <div>
       Lista de usuários
@@ -28,30 +30,30 @@ export default function UsersTable() {
           </tr>
         </thead>
         <tbody>
-          {users.map((e, index) => (
+          {users.map(({ id, name, email, role }, index) => (
             <tr key={ index }>
               <td
                 data-testid={ `admin_manage__element-user-table-item-number-${index}` }
               >
-                {e.id}
+                {id}
 
               </td>
               <td
                 data-testid={ `admin_manage__element-user-table-name-${index}` }
               >
-                {e.name}
+                {name}
 
               </td>
               <td
                 data-testid={ `admin_manage__element-user-table-email-${index}` }
               >
-                {e.email}
+                {email}
 
               </td>
               <td
                 data-testid={ `admin_manage__element-user-table-role-${index}` }
               >
-                {e.role}
+                {role}
 
               </td>
               <td>
