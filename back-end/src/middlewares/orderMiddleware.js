@@ -1,7 +1,7 @@
 const salesInfosValid = (req, res, next) => {
   const { saleInfos } = req.body;
   if (!saleInfos) return res.status(400).json({ message: '"saleInfos" is required' });
-  const requiredFields = ['total_price', 'delivery_address', 'delivery_number', 'sale_date'];
+  const requiredFields = ['totalPrice', 'deliveryAddress', 'deliveryNumber', 'saleDate'];
   if (!requiredFields.every((field) => saleInfos[field])) {
     const missingFields = requiredFields.filter((field) => !saleInfos[field]);
     return res.status(400).json({ message: `${missingFields.join(', ')} is required` });
