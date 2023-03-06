@@ -2,7 +2,7 @@ import React, { useState, useMemo, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import DeliveryContext from './DeliveryContext';
-import { apiGetAll } from '../services/requests';
+// import { apiGetAll } from '../services/requests';
 
 export default function DeliveryProvider({ children }) {
   const INITIAL_STATE = {
@@ -17,8 +17,15 @@ export default function DeliveryProvider({ children }) {
 
   useEffect(() => {
     const getUsers = async () => {
-      const users = await apiGetAll('/users');
-      setUsersOfDB(users);
+      // const users = await apiGetAll('/users');
+      const userToTest = {
+        id: 1,
+        name: 'Teste User',
+        email: 'teste@teste.com',
+        password: 'a%$sjdo9uashd123#@!',
+        role: 'seller',
+      };
+      setUsersOfDB([userToTest]);
     };
     getUsers();
   }, []);
@@ -30,7 +37,7 @@ export default function DeliveryProvider({ children }) {
     setCartProducts,
     usersOfDB,
     setUsersOfDB,
-  }), [userInfos, cartProducts, usersInDB]);
+  }), [userInfos, cartProducts, usersOfDB]);
 
   return (
     <DeliveryContext.Provider value={ contextValue }>
