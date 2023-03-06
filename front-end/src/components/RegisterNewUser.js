@@ -5,7 +5,7 @@ export default function RegisterNewUser() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [role, setRole] = useState('');
+  const [role, setRole] = useState('seller');
   const [isDisabled, setIsDisabled] = useState(true);
 
   useEffect(() => {
@@ -29,6 +29,7 @@ export default function RegisterNewUser() {
         name,
         email,
         password,
+        role,
       };
 
       await apiPost('/register', registerInfos);
