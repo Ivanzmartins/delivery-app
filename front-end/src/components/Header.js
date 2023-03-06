@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import DeliveryContext from '../context/DeliveryContext';
 // import { localStorageSaveItem } from '../services/localStorage';
 
@@ -22,11 +22,10 @@ export default function Header() {
             Produtos
 
           </li>
-          <li
-            data-testid="customer_products__element-navbar-link-orders"
-          >
-            Meus Pedidos
-
+          <li>
+            <NavLink to="/customer/orders">
+              Meus Pedidos
+            </NavLink>
           </li>
         </ul>
         <ul>
