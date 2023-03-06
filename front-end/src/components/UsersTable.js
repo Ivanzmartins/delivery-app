@@ -35,7 +35,7 @@ export default function UsersTable() {
               <td
                 data-testid={ `admin_manage__element-user-table-item-number-${index}` }
               >
-                {index + 1}
+                {index}
 
               </td>
               <td

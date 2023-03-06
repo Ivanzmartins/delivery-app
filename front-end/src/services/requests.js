@@ -18,6 +18,15 @@ export const apiPost = async (endpoint, body) => {
   return data;
 };
 
+export const adminPost = async (endpoint, body, token) => {
+  const { data } = await api.post(endpoint, body, {
+    headers: {
+      Authorization: token,
+    },
+  });
+  return data;
+};
+
 export const apiGetAll = async (endpoint) => {
   const { data } = await api.get(endpoint);
   return data;
