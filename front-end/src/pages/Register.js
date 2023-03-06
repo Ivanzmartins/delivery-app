@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { localStorageSaveItem } from '../services/localStorage';
 import { apiPost } from '../services/requests';
+
+import '../styles/register.css';
 
 export default function Register() {
   const [name, setName] = useState('');
@@ -9,6 +12,7 @@ export default function Register() {
   const [failedRegister, setFailedRegister] = useState(false);
   const [errorMessage, setErrorMessage] = useState('Erro ao cadastrar usuário.');
   const [isDisabled, setIsDisabled] = useState(true);
+  const navigate = useNavigate();
 
   const register = async (event) => {
     event.preventDefault();
@@ -19,17 +23,21 @@ export default function Register() {
     };
 
     try {
-      const STATUS_CREATED = 201;
+      const response = await apiPost('/register', registerInfos);
 
-      const { data, status } = await apiPost('/register', registerInfos);
-      if (status !== STATUS_CREATED) { // axios n permite cair nessa condicional, qualquer status de erro vai pro catch
-        setFailedRegister(true);
-        setErrorMessage(data.message);
-      }
-      localStorageSaveItem('token', data.token);
+      const userDTO = {
+        name: response.name,
+        email: response.email,
+        role: response.role,
+        token: response.token,
+      };
+
+      localStorageSaveItem('user', userDTO);
+      navigate('/customer/products');
     } catch (error) {
       console.log(error); // error.response
       setFailedRegister(true);
+      setErrorMessage(error.message);
     }
   };
 
@@ -48,10 +56,11 @@ export default function Register() {
   }, [name, email, password]);
 
   return (
-    <main>
-      <form onSubmit={ (event) => register(event) }>
+    <main className="register-container">
+      <h1>Cadastro</h1>
+      <form className="register-form" onSubmit={ (event) => register(event) }>
         <label htmlFor="name-input">
-          Nome
+          <p>Nome</p>
           <input
             type="text"
             name="name"
@@ -62,7 +71,7 @@ export default function Register() {
           />
         </label>
         <label htmlFor="email-input">
-          Email
+          <p>Email</p>
           <input
             type="email"
             name="email"
@@ -73,7 +82,7 @@ export default function Register() {
           />
         </label>
         <label htmlFor="password-input">
-          Senha
+          <p>Senha</p>
           <input
             type="password"
             name="password"
@@ -87,6 +96,7 @@ export default function Register() {
           type="submit"
           disabled={ isDisabled }
           data-testid="common_register__button-register"
+          className="register-screen-button"
         >
           CADASTRAR
 
@@ -95,6 +105,7 @@ export default function Register() {
       {failedRegister && (
         <p
           data-testid="common_register__element-invalid_register"
+          className="register-error"
         >
           {errorMessage}
 

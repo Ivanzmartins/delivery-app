@@ -1,41 +1,120 @@
-import React, { useContext } from 'react';
-import DeliveryContext from '../context/DeliveryContext';
+import React, { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { getLocalStorageItem } from '../services/localStorage';
+
+import '../styles/header.css';
 
 export default function Header() {
-  const { userInfos } = useContext(DeliveryContext);
+  const [name, setName] = useState('Nome da Pessoa.');
+  const [productButton, setProductButton] = useState('products-orders-button');
+  const [orderButton, setOrderButton] = useState('products-orders-button');
+  const [actualPath, setActualPath] = useState('');
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  return (
-    <section>
-      <nav>
-        <ul>
-          <li
-            data-testid="customer_products__element-navbar-link-products"
-          >
-            Produtos
+  useEffect(() => {
+    const getName = () => {
+      const userInfo = getLocalStorageItem('user');
+      setName(userInfo.name);
+    };
 
+    const getPathName = () => {
+      const { pathname } = location;
+      if (pathname.includes('products')) setProductButton('product-order-active');
+      if (pathname.includes('order')) setOrderButton('product-order-active');
+      setActualPath(pathname);
+    };
+
+    getName();
+    getPathName();
+  }, []);
+
+  const goToProducts = () => {
+    navigate('/customer/products');
+  };
+
+  const goToOrders = () => {
+    navigate('/customer/orders');
+  };
+
+  const goToAdminPage = () => {
+    navigate('/admin/manage');
+  };
+
+  const logout = () => {
+    localStorage.removeItem('user');
+    navigate('/login');
+  };
+
+  const handleHeaderRoutes = () => {
+    if (actualPath.includes('customer')) {
+      return (
+        <>
+          <li>
+            <button
+              type="button"
+              onClick={ () => goToProducts() }
+              className={ productButton }
+              data-testid="customer_products__element-navbar-link-products"
+            >
+              Produtos
+            </button>
           </li>
-          <li
+          <li>
+            <button
+              type="button"
+              onClick={ () => goToOrders() }
+              className={ orderButton }
+              data-testid="customer_products__element-navbar-link-orders"
+            >
+              Meus Pedidos
+            </button>
+          </li>
+        </>
+      );
+    }
+    if (actualPath.includes('admin')) {
+      return (
+        <li>
+          <button
+            type="button"
+            onClick={ () => goToAdminPage() }
+            className="product-order-active"
             data-testid="customer_products__element-navbar-link-orders"
           >
-            Meus Pedidos
+            Gerenciar Usuários
+          </button>
+        </li>
+      );
+    }
+  };
 
-          </li>
+  return (
+    <header className="header-container">
+      <nav className="nav-bar">
+        <ul>
+          {handleHeaderRoutes()}
         </ul>
         <ul>
           <li
             data-testid="customer_products__element-navbar-user-full-name"
+            className="user-name-header"
           >
-            {userInfos.name}
+            {name}
 
           </li>
-          <li
-            data-testid="customer_products__element-navbar-link-logout"
-          >
-            Sair
-
+          <li>
+            <button
+              type="button"
+              onClick={ () => logout() }
+              className="logout-button"
+              data-testid="customer_products__element-navbar-link-logout"
+            >
+              Sair
+            </button>
           </li>
         </ul>
       </nav>
-    </section>
+    </header>
   );
 }

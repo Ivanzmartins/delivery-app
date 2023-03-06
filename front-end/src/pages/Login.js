@@ -1,8 +1,10 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DeliveryContext from '../context/DeliveryContext';
 import { localStorageSaveItem } from '../services/localStorage';
 import { requestLogin, setToken } from '../services/requests';
+
+import '../styles/login.css';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -10,6 +12,14 @@ export default function Login() {
   const [failedToLogin, setFailedToLogin] = useState(false);
   const navigate = useNavigate();
   const { setUserInfos } = useContext(DeliveryContext);
+
+  const navigateTo = (responseRole) => {
+    if (responseRole === 'administrator') {
+      navigate('/admin/manage');
+    } else {
+      navigate('/customer/products');
+    }
+  };
 
   const login = async (event) => {
     event.preventDefault();
@@ -25,33 +35,31 @@ export default function Login() {
         token: response.token,
       };
 
-      localStorageSaveItem('userInfos', userDTO);
+      localStorageSaveItem('user', userDTO);
       setUserInfos(userDTO);
-      navigate('/customer/products');
+      navigateTo(response.role);
     } catch (error) {
       setFailedToLogin(true);
+      setEmail('');
+      setPassword('');
     }
   };
 
-  useEffect(() => {
-    setFailedToLogin(true);
-  }, [email, password]);
-
   const handleEmail = (em) => {
-    const emailRegex = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
+    const emailRegex = /\S+@\S+\.\S+/;
     return emailRegex.test(em);
   };
 
   const handlePassword = (senha) => {
     const minLength = 6;
-    return senha.length > minLength;
+    return senha.length >= minLength;
   };
 
   return (
-    <>
-      <form>
+    <main className="login-container">
+      <form className="login-form">
         <label htmlFor="email">
-          Login
+          <p>Login</p>
           <input
             data-testid="common_login__input-email"
             type="email"
@@ -61,7 +69,7 @@ export default function Login() {
           />
         </label>
         <label htmlFor="senha">
-          Senha
+          <p>Senha</p>
           <input
             data-testid="common_login__input-password"
             type="password"
@@ -72,6 +80,7 @@ export default function Login() {
         </label>
         <button
           data-testid="common_login__button-login"
+          className="login-button"
           type="button"
           disabled={ !(handleEmail(email) && handlePassword(password)) }
           onClick={ (event) => login(event) }
@@ -81,16 +90,23 @@ export default function Login() {
         <button
           data-testid="common_login__button-register"
           onClick={ () => navigate('/register') }
+          className="register-button"
           type="button"
         >
           Ainda não tenho conta
         </button>
       </form>
       {
-        failedToLogin ?? (
-          <p data-testid="common_login__element-invalid-email">Email ou senha inválido</p>
-        )
+        failedToLogin ? (
+          <p
+            data-testid="common_login__element-invalid-email"
+            className="login-error"
+          >
+            Email ou senha inválido
+
+          </p>
+        ) : null
       }
-    </>
+    </main>
   );
 }

@@ -1,10 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import DeliveryContext from '../context/DeliveryContext';
 import { getLocalStorageItem } from '../services/localStorage';
 
 export default function TotalValueBtn() {
   const [totalValue, setTotalValue] = useState('');
+  const [isDisabled, setIsDisabled] = useState(true);
+
   const { cartProducts, setCartProducts } = useContext(DeliveryContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getItemsFromStorage = () => {
@@ -20,30 +24,43 @@ export default function TotalValueBtn() {
       const cartItems = cartProducts;
       if (!cartItems.length) {
         setTotalValue('0,00');
+        setIsDisabled(true);
       } else if (cartItems.length === 1) {
-        const value = cartItems[0].price;
-        const treatValue = value.toFixed(2).replace('.', ',');
-        setTotalValue(treatValue);
+        const value = cartItems[0].subTotal;
+        setTotalValue(value);
+        setIsDisabled(false);
       } else {
-        const value = cartItems
-          .reduce((acc, curr) => acc + Number(curr.price), 0);
+        const treatPorducts = cartItems
+          .map((e) => ({ ...e, subTotal: e.subTotal.replace(',', '.') }));
+        const value = treatPorducts
+          .reduce((acc, curr) => acc + parseFloat(curr.subTotal), 0);
+        console.log(value);
         const treatValue = value.toFixed(2).replace('.', ',');
         setTotalValue(treatValue);
+        setIsDisabled(false);
       }
     };
 
     getValuesFromStorage();
   }, [cartProducts]);
+
+  const checkOut = () => {
+    navigate('/customer/checkout');
+  };
+
   return (
-    <div data-testid="customer_products__checkout-bottom-value">
-      <button
-        type="button"
-        data-testid="customer_products__button-cart"
-      >
-        Ver Carrinho: R$
-        {' '}
+    <button
+      type="button"
+      onClick={ () => checkOut() }
+      disabled={ isDisabled }
+      className="total-button"
+      data-testid="customer_products__button-cart"
+    >
+      Ver Carrinho: R$
+      {' '}
+      <span data-testid="customer_products__checkout-bottom-value">
         {totalValue}
-      </button>
-    </div>
+      </span>
+    </button>
   );
 }
