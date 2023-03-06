@@ -13,6 +13,14 @@ export default function Login() {
   const navigate = useNavigate();
   const { setUserInfos } = useContext(DeliveryContext);
 
+  const navigateTo = (responseRole) => {
+    if (responseRole === 'administrator') {
+      navigate('/admin/manage');
+    } else {
+      navigate('/customer/products');
+    }
+  };
+
   const login = async (event) => {
     event.preventDefault();
 
@@ -29,7 +37,7 @@ export default function Login() {
 
       localStorageSaveItem('user', userDTO);
       setUserInfos(userDTO);
-      navigate('/customer/products');
+      navigateTo(response.role);
     } catch (error) {
       setFailedToLogin(true);
       setEmail('');
