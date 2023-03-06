@@ -18,7 +18,8 @@ export default function DeliveryProvider({ children }) {
   useEffect(() => {
     const getUsers = async () => {
       const users = await apiGetAll('/user');
-      setUsersOfDB(users);
+      const removeAdmin = users.filter((e) => e.role !== 'administrator');
+      setUsersOfDB(removeAdmin);
     };
     getUsers();
   }, []);

@@ -30,30 +30,30 @@ export default function UsersTable() {
           </tr>
         </thead>
         <tbody>
-          {users.map(({ id, name, email, role }, index) => (
+          {users.map((e, index) => (
             <tr key={ index }>
               <td
                 data-testid={ `admin_manage__element-user-table-item-number-${index}` }
               >
-                {id}
+                {index + 1}
 
               </td>
               <td
                 data-testid={ `admin_manage__element-user-table-name-${index}` }
               >
-                {name}
+                {e.name}
 
               </td>
               <td
                 data-testid={ `admin_manage__element-user-table-email-${index}` }
               >
-                {email}
+                {e.email}
 
               </td>
               <td
                 data-testid={ `admin_manage__element-user-table-role-${index}` }
               >
-                {role}
+                {e.role}
 
               </td>
               <td>
