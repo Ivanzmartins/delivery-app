@@ -5,6 +5,7 @@ const path = require('path');
 const loginRouter = require('../Routes/loginRouter');
 const registerRouter = require('../Routes/registerRouter');
 const userRouter = require('../Routes/userRouter');
+const adminRouter = require('../Routes/adminRouter');
 const customerRouter = require('../Routes/customerRouter');
 const sellerRouter = require('../Routes/sellerRouter');
 
@@ -21,6 +22,8 @@ app.use('/login', loginRouter);
 app.use('/register', registerRouter);
 
 app.use('/user', userRouter);
+
+app.use('/admin', adminRouter);
 
 app.use('/customer', customerRouter);
 
