@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import DeliveryContext from '../context/DeliveryContext';
 import { apiPost } from '../services/requests';
 
@@ -43,7 +43,7 @@ export default function RegisterNewUser() {
   };
 
   return (
-    <from onSubmit={ (event) => register(event) }>
+    <form onSubmit={ (event) => register(event) }>
       <fieldset>
         <label htmlFor="name-toregister">
           Nome
@@ -79,7 +79,7 @@ export default function RegisterNewUser() {
             value={ role }
             onChange={ ({ target: { value } }) => setRole(value) }
           >
-            <option selected value="seller">Vendedor</option>
+            <option value="seller">Vendedor</option>
             <option value="customer">Comprador</option>
           </select>
         </label>
@@ -92,6 +92,6 @@ export default function RegisterNewUser() {
 
         </button>
       </fieldset>
-    </from>
+    </form>
   );
 }
