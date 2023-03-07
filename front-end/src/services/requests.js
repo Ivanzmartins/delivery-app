@@ -23,4 +23,9 @@ export const apiGetAll = async (endpoint) => {
   return data;
 };
 
+export const apiGetAllWithEmail = async (endpoint, email) => {
+  const { data } = await api.get(endpoint, { params: email });
+  return data;
+};
+
 export default api;

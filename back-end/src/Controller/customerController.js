@@ -8,7 +8,7 @@ const createOrder = async (req, res) => {
 };
 
 const getAllCustomerOrders = async (req, res) => {
-  const { email } = req.body;
+  const { email } = req.query;
   const userId = await userService.getUserIdWithEmail(email);
   const sales = await customerService.getAllCustomerOrders(userId);
   return res.status(200).json(sales);
