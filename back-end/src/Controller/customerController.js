@@ -2,8 +2,10 @@ const customerService = require('../Service/customerService');
 const userService = require('../Service/userService');
 
 const createOrder = async (req, res) => {
+  const userId = req.user.id;
   const { saleInfos, products } = req.body;
-  await customerService.createOrder(saleInfos, products);
+  await customerService.createOrder({ ...saleInfos, userId }, products);
+  console.log(req.user);
   return res.sendStatus(201);
 };
 

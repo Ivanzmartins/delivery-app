@@ -2,7 +2,6 @@ const Joi = require('joi');
 
 const saleSchema = Joi.object({
   saleInfos: Joi.object({
-    userId: Joi.number().required(),
     sellerId: Joi.number().required(),
     totalPrice: Joi.number().required(),
     deliveryAddress: Joi.string().required(),
