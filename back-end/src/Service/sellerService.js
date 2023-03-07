@@ -1,15 +1,15 @@
 const { Sale } = require('../database/models');
 
-const getAllSellerOrders = async (userId) => {
+const getAllSellerOrders = async (sellerId) => {
   const sales = await Sale.findAll({
-    where: { userId },
+    where: { sellerId },
   });
   return sales;
 };
 
-const getSellerOrderById = async (userId, saleId) => {
+const getSellerOrderById = async (sellerId, saleId) => {
   const sale = await Sale.findOne({
-    where: { userId, id: saleId },
+    where: { sellerId, id: saleId },
   });
   return sale;
 };
