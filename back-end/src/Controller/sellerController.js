@@ -15,7 +15,8 @@ const getSellerOrderById = async (req, res) => {
 };
 
 const updateSellerOrderStatus = async (req, res) => {
-  const { sellerId, status } = req.body;
+  const sellerId = req.user.id;
+  const { status } = req.body;
   const { saleId } = req.params;
   const sale = await sellerService.updateSellerOrderStatus(sellerId, saleId, status);
   return res.status(200).json(sale);
