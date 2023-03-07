@@ -6,6 +6,6 @@ const verifyToken = require('../middlewares/tokenValidation');
 const userRouter = Router();
 
 userRouter.post('/manage', verifyToken, verifyRole, adminController.registerUserByAdm);
-userRouter.delete('/manage', verifyToken, verifyRole, adminController.deleteUser);
+userRouter.delete('/manage/:id', verifyToken, verifyRole, adminController.deleteUser);
 
 module.exports = userRouter;
