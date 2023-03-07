@@ -1,6 +1,6 @@
 const express = require('express');
 const sellerController = require('../Controller/sellerController');
-const { sellerExists, saleExists, validateStatus } = require('../middlewares/sellerMiddleware');
+const { saleExists, validateStatus } = require('../middlewares/sellerMiddleware');
 const verifyToken = require('../middlewares/tokenValidation');
 
 const sellerRouter = express.Router();
@@ -11,7 +11,7 @@ sellerRouter.get('/orders/:saleId', saleExists, verifyToken, sellerController.ge
 
 sellerRouter.put(
   '/orders/:saleId',
-  sellerExists,
+  verifyToken,
   saleExists,
   validateStatus,
   sellerController.updateSellerOrderStatus,
