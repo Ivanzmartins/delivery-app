@@ -14,6 +14,8 @@ export default function UsersTable() {
     getUsers();
   }, [usersOfDB]);
 
+  // console.log(users);
+
   return (
     <div>
       Lista de usuários
@@ -33,7 +35,7 @@ export default function UsersTable() {
               <td
                 data-testid={ `admin_manage__element-user-table-item-number-${index}` }
               >
-                {e.id}
+                {index}
 
               </td>
               <td
