@@ -46,12 +46,13 @@ module.exports = {
       },
       saleDate: {
         type: Sequelize.DATE,
+        field: 'sale_date',
         defaultValue: Sequelize.NOW,
-        field: 'sale_date'
       },
       status: {
         type: Sequelize.ENUM('Pendente', 'Preparando', 'Em trânsito', 'Entregue'),
         allowNull: false,
+        defaultValue: 'Pendente',
       }
     });
   },

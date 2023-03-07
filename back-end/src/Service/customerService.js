@@ -1,11 +1,12 @@
-const { Sale, SaleProduct } = require('../database/models');
+const { SalesProducts, Sale } = require('../database/models');
 
 const createOrder = async (sale, products) => {
   const newSale = await Sale.create(sale); 
   const saleId = newSale.id;
   await Promise.all(products.map(async (product) => {
     const { id, quantity } = product;
-    await SaleProduct.create({ saleId, id, quantity });
+    console.log(`saleId: ${saleId}, id: ${id}, quantity: ${quantity}`);
+    SalesProducts.create({ saleId, productId: id, quantity });
   }));
 };
 

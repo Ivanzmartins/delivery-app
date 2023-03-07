@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { localStorageSaveItem } from '../services/localStorage';
 import { apiPost } from '../services/requests';
 
+import '../styles/register.css';
+
 export default function Register() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -54,10 +56,11 @@ export default function Register() {
   }, [name, email, password]);
 
   return (
-    <main>
-      <form onSubmit={ (event) => register(event) }>
+    <main className="register-container">
+      <h1>Cadastro</h1>
+      <form className="register-form" onSubmit={ (event) => register(event) }>
         <label htmlFor="name-input">
-          Nome
+          <p>Nome</p>
           <input
             type="text"
             name="name"
@@ -68,7 +71,7 @@ export default function Register() {
           />
         </label>
         <label htmlFor="email-input">
-          Email
+          <p>Email</p>
           <input
             type="email"
             name="email"
@@ -79,7 +82,7 @@ export default function Register() {
           />
         </label>
         <label htmlFor="password-input">
-          Senha
+          <p>Senha</p>
           <input
             type="password"
             name="password"
@@ -93,6 +96,7 @@ export default function Register() {
           type="submit"
           disabled={ isDisabled }
           data-testid="common_register__button-register"
+          className="register-screen-button"
         >
           CADASTRAR
 
@@ -101,6 +105,7 @@ export default function Register() {
       {failedRegister && (
         <p
           data-testid="common_register__element-invalid_register"
+          className="register-error"
         >
           {errorMessage}
 

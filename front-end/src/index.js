@@ -5,6 +5,8 @@ import reportWebVitals from './reportWebVitals';
 import App from './App';
 import DeliveryProvider from './context/DeliveryProvider';
 
+import './index.css';
+
 ReactDOM.render(
   <React.StrictMode>
     <DeliveryProvider>
