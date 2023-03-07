@@ -8,9 +8,9 @@ const customerRouter = express.Router();
 
 customerRouter.post('/checkout', saleMiddleware, verifyToken, customerController.createOrder);
 
-customerRouter.get('/orders', customerController.getAllCustomerOrders);
+customerRouter.get('/orders', verifyToken, customerController.getAllCustomerOrders);
 
-customerRouter.get('/orders/:saleId', customerController.getCustomerOrderById);
+customerRouter.get('/orders/:saleId', verifyToken, customerController.getCustomerOrderById);
 
 customerRouter.get('/products', productsController.getAll);
 
