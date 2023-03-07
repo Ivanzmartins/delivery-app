@@ -5,8 +5,7 @@ export default function OrdersCard({ id, status, date, price }) {
   return (
     <>
       <div data-testid={ `customer_orders__element-order-id-${id}` }>
-        Pedido
-        {id}
+        {`Pedido ${id}`}
       </div>
       <div data-testid={ `customer_orders__element-delivery-status-${id}` }>
         {status}
@@ -15,7 +14,7 @@ export default function OrdersCard({ id, status, date, price }) {
         {date}
       </div>
       <div data-testid={ `customer_orders__element-card-price-${id}` }>
-        {price}
+        {`R$ ${price}`}
       </div>
     </>
   );
@@ -24,6 +23,6 @@ export default function OrdersCard({ id, status, date, price }) {
 OrdersCard.propTypes = {
   id: PropTypes.number.isRequired,
   status: PropTypes.string.isRequired,
-  date: PropTypes.instanceOf(Date).isRequired,
+  date: PropTypes.string.isRequired,
   price: PropTypes.string.isRequired,
 };

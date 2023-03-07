@@ -32,8 +32,8 @@ export default function Orders() {
           <OrdersCard
             id={ order.id }
             status={ order.status }
-            date={ order.date }
-            price={ order.price }
+            date={ order.saleDate }
+            price={ order.totalPrice }
           />
         </div>)) : (<p>{errorMessage}</p>)}
     </main>
