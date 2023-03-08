@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { getLocalStorageItem, localStorageSaveItem } from '../services/localStorage';
 
 function CheckoutTable() {
-  const [cart, setCart] = useState(() => getLocalStorageItem('carrinho'));
+  const [cart, setCart] = useState(() => getLocalStorageItem('carrinho') || []);
 
   const tableHead = ['Item', 'Descrição', 'Quantidade',
     'Valor Unitário', 'Sub-total', 'Remover Item'];
