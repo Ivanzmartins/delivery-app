@@ -23,4 +23,9 @@ export const apiGetAll = async (endpoint) => {
   return data;
 };
 
+export const apiGetAllWithToken = async (endpoint, token) => {
+  const { data } = await api.get(endpoint, { headers: { Authorization: token } });
+  return data;
+};
+
 export default api;
