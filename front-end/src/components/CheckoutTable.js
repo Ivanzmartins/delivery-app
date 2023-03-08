@@ -1,34 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { getLocalStorageItem, localStorageSaveItem } from '../services/localStorage';
 
 export default function CheckoutTable() {
-  const [cart, setCart] = useState([]);
-  const [total, setTotal] = useState('');
+  const [cart, setCart] = useState(() => getLocalStorageItem('carrinho'));
 
   const tableHead = ['Item', 'Descrição', 'Quantidade',
     'Valor Unitário', 'Sub-total', 'Remover Item'];
 
   const getTotal = () => {
-    const treatPorducts = cart
-      .map((e) => ({ ...e, subTotal: e.subTotal.replace(',', '.') }));
-    const value = treatPorducts
-      .reduce((acc, curr) => acc + parseFloat(curr.subTotal), 0);
-    const treatValue = value.toFixed(2).replace('.', ',');
-    setTotal(treatValue);
+    const sum = cart
+      .reduce((acc, curr) => acc + (curr.unitPrice * curr.quantity), 0).toFixed(2);
+    const text = sum.toString();
+    return text.replace('.', ',');
   };
-
-  useEffect(() => {
-    const getCart = () => {
-      const ct = getLocalStorageItem('carrinho');
-      setCart(ct);
-    };
-    getCart();
-    getTotal();
-  }, []);
 
   const removeItem = (name) => {
     const newCart = cart.filter((i) => i.name !== name);
     localStorageSaveItem('carrinho', newCart);
+    setCart(newCart);
   };
 
   return (
@@ -51,7 +40,7 @@ export default function CheckoutTable() {
                     `customer_checkout__element-order-table-item-number-${index}`
                   }
                 >
-                  {e.index + 1}
+                  {index + 1}
                 </td>
                 <td
                   data-testid={
@@ -72,7 +61,7 @@ export default function CheckoutTable() {
                     `customer_checkout__element-order-table-unit-price-${index}`
                   }
                 >
-                  {e.unitPrice}
+                  {e.unitPrice.toString().replace('.', ',')}
                 </td>
                 <td
                   data-testid={
@@ -81,21 +70,26 @@ export default function CheckoutTable() {
                 >
                   {e.subTotal}
                 </td>
-                <button
-                  type="button"
-                  onClick={ () => removeItem(e.name) }
-                  data-testid={
-                    `customer_checkout__element-order-table-remove-${index}`
-                  }
-                >
-                  Remover
-                </button>
+                <td>
+                  <button
+                    data-testid={
+                      `customer_checkout__element-order-table-remove-${index}`
+                    }
+                    type="button"
+                    onClick={ () => removeItem(e.name) }
+
+                  >
+                    Remover
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
-        <p>
-          {`Total: R$ ${total}`}
+        <p
+          data-testid="customer_checkout__element-order-total-price"
+        >
+          {getTotal()}
         </p>
       </div>
     </>
