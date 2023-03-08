@@ -4,7 +4,6 @@ const createOrder = async (req, res) => {
   const userId = req.user.id;
   const { saleInfos, products } = req.body;
   const order = await customerService.createOrder({ ...saleInfos, userId }, products);
-  console.log(req.user);
   return res.status(201).json(order);
 };
 
