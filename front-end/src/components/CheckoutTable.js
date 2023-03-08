@@ -17,7 +17,8 @@ export default function CheckoutTable() {
   const removeItem = (name) => {
     const newCart = cart.filter((i) => i.name !== name);
     localStorageSaveItem('carrinho', newCart);
-    setCart(newCart);
+    const lS = getLocalStorageItem('carrinho');
+    setCart(lS);
   };
 
   return (
