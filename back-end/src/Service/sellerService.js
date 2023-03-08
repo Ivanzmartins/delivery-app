@@ -1,8 +1,19 @@
-const { Sale } = require('../database/models');
+const { Sale, Product, User } = require('../database/models');
 
 const getAllSellerOrders = async (sellerId) => {
   const sales = await Sale.findAll({
     where: { sellerId },
+    include: [
+      {
+        model: Product,
+        as: 'sale',
+      },
+      {
+        model: User,
+        as: 'sellers',
+        attributes: { exclude: ['password', 'id', 'role'] },
+      },
+    ],
   });
   return sales;
 };
@@ -10,6 +21,17 @@ const getAllSellerOrders = async (sellerId) => {
 const getSellerOrderById = async (sellerId, saleId) => {
   const sale = await Sale.findOne({
     where: { sellerId, id: saleId },
+    include: [
+      {
+        model: Product,
+        as: 'sale',
+      },
+      {
+        model: User,
+        as: 'sellers',
+        attributes: { exclude: ['password', 'id', 'role'] },
+      },
+    ],
   });
   return sale;
 };
