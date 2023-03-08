@@ -50,7 +50,7 @@ module.exports = {
         defaultValue: Sequelize.NOW,
       },
       status: {
-        type: Sequelize.VARCHAR(50),
+        type: Sequelize.STRING,
         allowNull: false,
         defaultValue: 'Pendente',
       }
