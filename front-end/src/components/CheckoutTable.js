@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { getLocalStorageItem, localStorageSaveItem } from '../services/localStorage';
 
-export default function CheckoutTable() {
+function CheckoutTable() {
   const [cart, setCart] = useState(() => getLocalStorageItem('carrinho'));
 
   const tableHead = ['Item', 'Descrição', 'Quantidade',
@@ -96,3 +96,4 @@ export default function CheckoutTable() {
     </>
   );
 }
+export default CheckoutTable;
