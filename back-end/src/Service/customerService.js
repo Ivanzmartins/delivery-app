@@ -8,6 +8,7 @@ const createOrder = async (sale, products) => {
     console.log(`saleId: ${saleId}, id: ${id}, quantity: ${quantity}`);
     SalesProducts.create({ saleId, productId: id, quantity });
   }));
+  return newSale;
 };
 
 const getAllCustomerOrders = async (userId) => {
