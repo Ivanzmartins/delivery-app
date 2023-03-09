@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import OrdersCard from '../components/OrdersCard';
+import { getLocalStorageItem } from '../services/localStorage';
+import { apiGetAllWithToken } from '../services/requests';
 
 export default function Orders() {
   const [allOrders, setAllOrders] = useState([]);
@@ -10,7 +12,8 @@ export default function Orders() {
 
   const getOrders = async () => {
     try {
-      const orders = await apiGetAll('/seller/orders/');
+      const { token } = getLocalStorageItem('user');
+      const orders = await apiGetAllWithToken('/seller/orders', token);
       setAllOrders(orders);
     } catch (error) {
       setFailedRequest(true);
@@ -33,6 +36,7 @@ export default function Orders() {
               status={ order.status }
               date={ order.saleDate }
               price={ order.totalPrice }
+              actor="seller"
             />
           </div>
         </Link>)) : (<p>{errorMessage}</p>)}
