@@ -5,6 +5,7 @@ const createOrder = async (sale, products) => {
   const saleId = newSale.id;
   await Promise.all(products.map(async (product) => {
     const { id, quantity } = product;
+    console.log(`saleId: ${saleId}, id: ${id}, quantity: ${quantity}`);
     SalesProducts.create({ saleId, productId: id, quantity });
   }));
   return newSale;
@@ -46,17 +47,8 @@ const getCustomerOrderById = async (userId, saleId) => {
   return sale;
 };
 
-const updateOrderDelivered = async (userId, saleId) => {
-  const sale = await Sale.update(
-    { status: 'Entregue' },
-    { where: { userId, id: saleId } },
-  );
-  return sale;
-};
-
 module.exports = {
   createOrder,
   getAllCustomerOrders,
   getCustomerOrderById,
-  updateOrderDelivered,
 };
