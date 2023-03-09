@@ -7,6 +7,7 @@ import { apiGetAll, apiPost, setToken } from '../services/requests';
 function CustomerOrderDetails() {
   const [order, setOrder] = useState({});
   const [sale, setSale] = useState([]);
+  const [loading, setLoading] = useState(true);
   const location = useLocation();
 
   const tableHead = ['Item', 'Descrição', 'Quantidade',
@@ -19,6 +20,7 @@ function CustomerOrderDetails() {
         const ordr = await apiGetAll(location.pathname);
         setOrder(ordr);
         setSale(ordr.sale);
+        setLoading(false);
       } catch (error) {
         console.log(error);
       }
@@ -36,6 +38,12 @@ function CustomerOrderDetails() {
     const subTotal = (quantity * price).toFixed(2);
     return subTotal.toString().replace('.', ',');
   };
+
+  if (loading) {
+    return (
+      <p>Loading...</p>
+    );
+  }
 
   return (
     <>
@@ -83,43 +91,40 @@ function CustomerOrderDetails() {
             </tr>
           </thead>
           <tbody>
-            { !sale.length ? <p>loading</p> : (sale.map((e, index) => {
-              console.log('Entrou aqui');
-              return (
-                <tr key={ index }>
-                  <td
-                    data-testid={ `customer_order_details__
+            { sale.map((e, index) => (
+              <tr key={ index }>
+                <td
+                  data-testid={ `customer_order_details__
                   element-order-table-item-number-${index}` }
-                  >
-                    {index + 1}
-                  </td>
-                  <td
-                    data-testid={ `customer_order_details__
+                >
+                  {index + 1}
+                </td>
+                <td
+                  data-testid={ `customer_order_details__
                   element-order-table-name-${index}` }
-                  >
-                    {e.name}
-                  </td>
-                  <td
-                    data-testid={ `customer_order_details__
+                >
+                  {e.name}
+                </td>
+                <td
+                  data-testid={ `customer_order_details__
                   element-order-table-quantity-${index}` }
-                  >
-                    {e.SalesProducts.quantity}
-                  </td>
-                  <td
-                    data-testid={ `customer_order_details__
+                >
+                  {e.SalesProducts.quantity}
+                </td>
+                <td
+                  data-testid={ `customer_order_details__
                 element-order-table-unit-price-${index}` }
-                  >
-                    {e.price.toString().replace('.', ',')}
-                  </td>
-                  <td
-                    data-testid={ `customer_order_details__
+                >
+                  {e.price.toString().replace('.', ',')}
+                </td>
+                <td
+                  data-testid={ `customer_order_details__
                   element-order-table-sub-total-${index}` }
-                  >
-                    {getSubTotal(e.SalesProducts.quantity, e.price)}
-                  </td>
-                </tr>
-              );
-            }))}
+                >
+                  {getSubTotal(e.SalesProducts.quantity, e.price)}
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
         <p
