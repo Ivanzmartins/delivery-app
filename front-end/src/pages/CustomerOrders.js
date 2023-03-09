@@ -36,6 +36,7 @@ export default function Orders() {
               status={ order.status }
               date={ order.saleDate }
               price={ order.totalPrice }
+              actor="customer"
             />
           </div>
         </Link>)) : (<p>{errorMessage}</p>)}
