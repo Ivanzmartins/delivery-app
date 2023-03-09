@@ -47,7 +47,7 @@ export default function Login() {
     const userInfo = getLocalStorageItem('user');
     if (userInfo && userInfo.token !== '') {
       if (userInfo.role === 'administrator') navigate('/admin/manage');
-      if (userInfo.role === 'customer') navigate('/customers/orders');
+      if (userInfo.role === 'customer') navigate('/customer/products');
       if (userInfo.role === 'seller') navigate('/seller/orders');
     }
   }, [navigate]);
