@@ -47,7 +47,7 @@ export default function AddressForm() {
     try {
       const { id } = await apiPost('/customer/checkout', body);
       localStorage.removeItem('carrinho');
-      navigate(`customer/orders/${id}`);
+      navigate(`/customer/orders/${id}`);
     } catch (error) {
       console.log(error);
     }
