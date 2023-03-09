@@ -26,7 +26,7 @@ function SellerOrderDetailsTable() {
       }
     };
     getOrder();
-  }, []);
+  }, [location.pathname]);
 
   const getSubTotal = (quantity, price) => {
     const subTotal = (quantity * price).toFixed(2);

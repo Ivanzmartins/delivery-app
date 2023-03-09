@@ -25,7 +25,7 @@ export default function CustomerOrderDetailsTable() {
       }
     };
     getOrder();
-  }, []);
+  }, [location.pathname]);
 
   const confirmDelivery = async () => {
     const status = { status: 'Entregue' };
