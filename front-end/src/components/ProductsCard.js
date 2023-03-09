@@ -23,11 +23,10 @@ export default function ProductsCard({ id, name, price, urlImage }) {
         quantity: 1,
         subTotal,
       };
-
       setItem(itemDTO);
     };
     getItem();
-  }, []);
+  }, [id, name, price, urlImage]);
 
   const handleQuantity = (counter) => {
     const updateSubTotal = counter * parseFloat(price);
@@ -90,7 +89,6 @@ export default function ProductsCard({ id, name, price, urlImage }) {
       setItem((prevValues) => ({
         ...prevValues,
         subTotal: item.unitPrice,
-
       }));
       rmContextItem();
       setCount(0);
