@@ -6,6 +6,8 @@ export default function OrdersCard({ id, status, date, price, actor }) {
   const getDate = `${date.slice(EIGHT, TEN)}/${date
     .slice(FIVE, SEVEN)}/${date.slice(0, FOUR)}`;
 
+  const getPrice = price.replace(/\./, ',');
+
   const setActor = actor === 'customer' ? 'customer_orders' : 'seller_orders';
 
   return (
@@ -20,7 +22,9 @@ export default function OrdersCard({ id, status, date, price, actor }) {
         {getDate}
       </div>
       <div data-testid={ `${setActor}__element-card-price-${id}` }>
-        {`R$ ${price}`}
+        R$
+        {' '}
+        { getPrice }
       </div>
     </>
   );
