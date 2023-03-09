@@ -47,8 +47,17 @@ const getCustomerOrderById = async (userId, saleId) => {
   return sale;
 };
 
+const updateSellerOrderDelivered = async (userId, saleId) => {
+  const sale = await Sale.update(
+    { status: 'Entregue' },
+    { where: { userId, id: saleId } },
+  );
+  return sale;
+};
+
 module.exports = {
   createOrder,
   getAllCustomerOrders,
   getCustomerOrderById,
+  updateSellerOrderDelivered,
 };

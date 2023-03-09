@@ -20,8 +20,16 @@ const getCustomerOrderById = async (req, res) => {
   return res.status(200).json(sale);
 };
 
+const updateOrderToDelivered = async (req, res) => {
+  const userId = req.user.id;
+  const { saleId } = req.params;
+  const sale = await customerService.updateSellerOrderDelivered(userId, saleId);
+  return res.status(200).json(sale);
+};
+
 module.exports = {
   createOrder,
   getAllCustomerOrders,
   getCustomerOrderById,
+  updateOrderToDelivered,
 };
