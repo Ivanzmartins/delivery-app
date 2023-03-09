@@ -1,22 +1,20 @@
 const customerService = require('../Service/customerService');
-const userService = require('../Service/userService');
 
 const createOrder = async (req, res) => {
+  const userId = req.user.id;
   const { saleInfos, products } = req.body;
-  await customerService.createOrder(saleInfos, products);
-  return res.sendStatus(201);
+  const order = await customerService.createOrder({ ...saleInfos, userId }, products);
+  return res.status(201).json(order);
 };
 
 const getAllCustomerOrders = async (req, res) => {
-  const { email } = req.body;
-  const userId = await userService.getUserIdWithEmail(email);
+  const userId = req.user.id;
   const sales = await customerService.getAllCustomerOrders(userId);
   return res.status(200).json(sales);
 };
 
 const getCustomerOrderById = async (req, res) => {
-  const { email } = req.body;
-  const userId = await userService.getUserIdWithEmail(email);
+  const userId = req.user.id;
   const { saleId } = req.params;
   const sale = await customerService.getCustomerOrderById(userId, saleId);
   return res.status(200).json(sale);

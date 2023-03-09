@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import DeliveryContext from '../context/DeliveryContext';
-import { apiPost } from '../services/requests';
+import { adminPost } from '../services/requests';
+import { getLocalStorageItem } from '../services/localStorage';
 
 export default function RegisterNewUser() {
   const [name, setName] = useState('');
@@ -10,7 +11,7 @@ export default function RegisterNewUser() {
   const [isDisabled, setIsDisabled] = useState(true);
   const [isError, setIsError] = useState(false);
 
-  const { setUserOfDB } = useContext(DeliveryContext);
+  const { setUsersOfDB } = useContext(DeliveryContext);
 
   useEffect(() => {
     const validateInputs = () => {
@@ -36,8 +37,14 @@ export default function RegisterNewUser() {
         role,
       };
 
-      const responde = await apiPost('/register', registerInfos);
-      setUserOfDB((prevState) => [...prevState, responde]);
+      const userLocalStorage = getLocalStorageItem('user');
+
+      const response = await adminPost(
+        '/admin/manage',
+        registerInfos,
+        userLocalStorage.token,
+      );
+      setUsersOfDB((prevState) => [...prevState, response]);
     } catch (error) {
       console.log(error); // error.response
       setIsError(true);

@@ -17,7 +17,7 @@ const registerUserByAdm = async (req, res) => {
 };
 
 const deleteUser = async (req, res) => {
-  const { id } = req.body;
+  const { id } = req.params;
   const { type, message } = await adminService.deleteUser(id);
   res.status(type).json(message);
 };

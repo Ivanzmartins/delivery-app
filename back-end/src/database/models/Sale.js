@@ -33,7 +33,7 @@ const Sale = (sequelize, DataTypes) => {
     },
     status: {
       allowNull: false,
-      type: DataTypes.ENUM('Pendente', 'Preparando', 'Em trânsito', 'Entregue'),
+      type: DataTypes.STRING,
       defaultValue: 'Pendente',
     }
     },

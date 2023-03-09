@@ -50,7 +50,7 @@ module.exports = {
         defaultValue: Sequelize.NOW,
       },
       status: {
-        type: Sequelize.ENUM('Pendente', 'Preparando', 'Em trânsito', 'Entregue'),
+        type: Sequelize.STRING,
         allowNull: false,
         defaultValue: 'Pendente',
       }
