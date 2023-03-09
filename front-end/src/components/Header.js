@@ -27,7 +27,7 @@ export default function Header() {
 
     getName();
     getPathName();
-  }, []);
+  }, [location]);
 
   const goToProducts = () => {
     navigate('/customer/products');
