@@ -14,11 +14,9 @@ export default function Login() {
   const { setUserInfos } = useContext(DeliveryContext);
 
   const navigateTo = (responseRole) => {
-    if (responseRole === 'administrator') {
-      navigate('/admin/manage');
-    } else {
-      navigate('/customer/products');
-    }
+    if (responseRole === 'administrator') navigate('/admin/manage');
+    if (responseRole === 'seller') navigate('/seller/orders');
+    if (responseRole === 'customer') navigate('/customer/products');
   };
 
   const login = async (event) => {
