@@ -19,7 +19,7 @@ const saleExists = async (req, res, next) => {
 const validateStatus = (req, res, next) => {
   const { status } = req.body;
   if (!status) return res.status(400).json({ message: 'Status is required' });
-  const allowedStatus = ['Preparando', 'Em trânsito'];
+  const allowedStatus = ['Pendente', 'Preparando', 'Entregue', 'Em Trânsito'];
   if (!allowedStatus.includes(status)) {
     return res.status(400).json({ message: 'Invalid status' });
   }

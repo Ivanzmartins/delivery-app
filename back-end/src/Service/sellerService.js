@@ -37,10 +37,11 @@ const getSellerOrderById = async (sellerId, saleId) => {
 };
 
 const updateSellerOrderStatus = async (sellerId, saleId, status) => {
-  const sale = await Sale.update(
+  await Sale.update(
     { status },
     { where: { sellerId, id: saleId } },
   );
+  const sale = await getSellerOrderById(sellerId, saleId);
   return sale;
 };
 

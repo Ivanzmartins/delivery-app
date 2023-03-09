@@ -37,4 +37,9 @@ export const apiGetAllWithToken = async (endpoint, token) => {
   return data;
 };
 
+export const changeOrderStatus = async (endpoint, body) => {
+  const { data } = await api.put(endpoint, body);
+  return data;
+};
+
 export default api;
