@@ -34,7 +34,9 @@ export default function Header() {
   };
 
   const goToOrders = () => {
-    navigate('/customer/orders');
+    const { role } = getLocalStorageItem('user');
+    if (role === 'customer') navigate('/customer/orders');
+    if (role === 'seller') navigate('/seller/orders');
   };
 
   const goToAdminPage = () => {
@@ -71,6 +73,20 @@ export default function Header() {
             </button>
           </li>
         </>
+      );
+    }
+    if (actualPath.includes('seller')) {
+      return (
+        <li>
+          <button
+            type="button"
+            onClick={ () => goToOrders() }
+            className={ orderButton }
+            data-testid="customer_products__element-navbar-link-orders"
+          >
+            Meus Pedidos
+          </button>
+        </li>
       );
     }
     if (actualPath.includes('admin')) {
