@@ -1,19 +1,30 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import Header from '../components/Header';
-import { apiGetAll, apiPost } from '../services/requests';
+import { getLocalStorageItem } from '../services/localStorage';
+import { apiGetAll, apiPost, setToken } from '../services/requests';
 
 function CustomerOrderDetails() {
-  const [order, setOrder] = useState([]);
+  const [order, setOrder] = useState({});
+  const [sale, setSale] = useState([]);
   const location = useLocation();
 
   const tableHead = ['Item', 'Descrição', 'Quantidade',
     'Valor Unitário', 'Sub-total'];
 
-  const getOrder = async () => {
-    const ordr = await apiGetAll(location.pathname);
-    setOrder(ordr);
-  };
+  useEffect(() => {
+    const getOrder = async () => {
+      setToken(getLocalStorageItem('user').token);
+      try {
+        const ordr = await apiGetAll(location.pathname);
+        setOrder(ordr);
+        setSale(ordr.sale);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getOrder();
+  }, []);
 
   const confirmDelivery = async () => {
     const status = { status: 'Entregue' };
@@ -25,10 +36,6 @@ function CustomerOrderDetails() {
     const subTotal = (quantity * price).toFixed(2);
     return subTotal.toString().replace('.', ',');
   };
-
-  useEffect(() => {
-    getOrder();
-  }, []);
 
   return (
     <>
@@ -50,7 +57,7 @@ function CustomerOrderDetails() {
             data-testid="Group customer_order_details__
             element-order-details-label-order-date"
           >
-            {order.date}
+            {order.saleDate}
           </p>
           <p
             data-testid={ `customer_order_details__
@@ -76,40 +83,43 @@ function CustomerOrderDetails() {
             </tr>
           </thead>
           <tbody>
-            {order.sale.map((e, index) => (
-              <tr key={ index }>
-                <td
-                  data-testid={ `customer_order_details__
+            { !sale.length ? <p>loading</p> : (sale.map((e, index) => {
+              console.log('Entrou aqui');
+              return (
+                <tr key={ index }>
+                  <td
+                    data-testid={ `customer_order_details__
                   element-order-table-item-number-${index}` }
-                >
-                  {index + 1}
-                </td>
-                <td
-                  data-testid={ `customer_order_details__
+                  >
+                    {index + 1}
+                  </td>
+                  <td
+                    data-testid={ `customer_order_details__
                   element-order-table-name-${index}` }
-                >
-                  {e.name}
-                </td>
-                <td
-                  data-testid={ `customer_order_details__
+                  >
+                    {e.name}
+                  </td>
+                  <td
+                    data-testid={ `customer_order_details__
                   element-order-table-quantity-${index}` }
-                >
-                  {e.SalesProducts.quantity}
-                </td>
-                <td
-                  data-testid={ `customer_order_details__
+                  >
+                    {e.SalesProducts.quantity}
+                  </td>
+                  <td
+                    data-testid={ `customer_order_details__
                 element-order-table-unit-price-${index}` }
-                >
-                  {e.price.toString().replace('.', ',')}
-                </td>
-                <td
-                  data-testid={ `customer_order_details__
+                  >
+                    {e.price.toString().replace('.', ',')}
+                  </td>
+                  <td
+                    data-testid={ `customer_order_details__
                   element-order-table-sub-total-${index}` }
-                >
-                  {getSubTotal(e.SalesProducts.quantity, e.price)}
-                </td>
-              </tr>
-            ))}
+                  >
+                    {getSubTotal(e.SalesProducts.quantity, e.price)}
+                  </td>
+                </tr>
+              );
+            }))}
           </tbody>
         </table>
         <p

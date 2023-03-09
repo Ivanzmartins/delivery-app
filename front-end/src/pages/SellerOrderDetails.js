@@ -51,7 +51,7 @@ function SellerOrderDetails() {
             data-testid="Group seller_order_details__
             element-order-details-label-order-date"
           >
-            {order.date}
+            {order.saleDate}
           </p>
           <p
             data-testid={ `seller_order_details__
