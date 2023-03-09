@@ -17,7 +17,7 @@ export default function TotalValueBtn() {
     };
 
     getItemsFromStorage();
-  }, []);
+  }, [setCartProducts]);
 
   useEffect(() => {
     const getValuesFromStorage = () => {
