@@ -1,7 +1,7 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DeliveryContext from '../context/DeliveryContext';
-import { localStorageSaveItem } from '../services/localStorage';
+import { getLocalStorageItem, localStorageSaveItem } from '../services/localStorage';
 import { requestLogin, setToken } from '../services/requests';
 
 import '../styles/login.css';
@@ -44,6 +44,11 @@ export default function Login() {
       setPassword('');
     }
   };
+
+  useEffect(() => {
+    const userInfo = getLocalStorageItem('user');
+    if (userInfo && userInfo.token !== '') navigate('/customer/products');
+  }, [navigate]);
 
   const handleEmail = (em) => {
     const emailRegex = /\S+@\S+\.\S+/;
