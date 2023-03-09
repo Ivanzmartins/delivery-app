@@ -14,11 +14,9 @@ export default function Login() {
   const { setUserInfos } = useContext(DeliveryContext);
 
   const navigateTo = (responseRole) => {
-    if (responseRole === 'administrator') {
-      navigate('/admin/manage');
-    } else {
-      navigate('/customer/products');
-    }
+    if (responseRole === 'administrator') navigate('/admin/manage');
+    if (responseRole === 'customer') navigate('/customer/products');
+    if (responseRole === 'seller') navigate('/seller/orders');
   };
 
   const login = async (event) => {
@@ -47,7 +45,11 @@ export default function Login() {
 
   useEffect(() => {
     const userInfo = getLocalStorageItem('user');
-    if (userInfo && userInfo.token !== '') navigate('/customer/products');
+    if (userInfo && userInfo.token !== '') {
+      if (userInfo.role === 'administrator') navigate('/admin/manage');
+      if (userInfo.role === 'customer') navigate('/customers/orders');
+      if (userInfo.role === 'seller') navigate('/seller/orders');
+    }
   }, [navigate]);
 
   const handleEmail = (em) => {
