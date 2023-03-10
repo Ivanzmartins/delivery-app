@@ -16,7 +16,7 @@ customerRouter.get('/products', productsController.getAll);
 
 customerRouter.get('/products/:id', productsController.getById);
 
-customerRouter.put('/orders/:saleId/delivered',
+customerRouter.put('/orders/:saleId',
 verifyToken, customerController.updateOrderToDelivered);
 
 module.exports = customerRouter;

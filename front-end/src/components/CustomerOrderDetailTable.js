@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { getLocalStorageItem } from '../services/localStorage';
-import { apiGetAll, apiPost, setToken } from '../services/requests';
+import { apiGetAll, updateOrder, setToken } from '../services/requests';
+import { FOUR, FIVE, SEVEN, EIGHT, TEN } from '../util/magicNumbers';
 
 export default function CustomerOrderDetailsTable() {
   const [order, setOrder] = useState({});
@@ -28,8 +29,7 @@ export default function CustomerOrderDetailsTable() {
   }, [location.pathname]);
 
   const confirmDelivery = async () => {
-    const status = { status: 'Entregue' };
-    const updatedOrder = await apiPost(location.pathname, status);
+    const updatedOrder = await updateOrder(location.pathname);
     setOrder(updatedOrder);
   };
 
@@ -38,11 +38,16 @@ export default function CustomerOrderDetailsTable() {
     return subTotal.toString().replace('.', ',');
   };
 
+  const getDate = (date) => `${date.slice(EIGHT, TEN)}/${date
+    .slice(FIVE, SEVEN)}/${date.slice(0, FOUR)}`;
+
   if (loading) {
     return (
       <p>Loading...</p>
     );
   }
+
+  const { status } = order;
 
   return (
     <div>
@@ -56,17 +61,17 @@ export default function CustomerOrderDetailsTable() {
         <p
           data-testid="customer_order_details__element-order-details-label-seller-name"
         >
-          {order.seller}
+          {order.sellers.name}
         </p>
         <p
-          data-testid="Group customer_order_details__
-            element-order-details-label-order-date"
+          data-testid="customer_order_details__element-order-details-label-order-date"
         >
-          {order.saleDate}
+          {getDate(order.saleDate)}
         </p>
         <p
-          data-testid={ `customer_order_details__
-            element-order-details-label-delivery-status${order.status}` }
+          data-testid={
+            `customer_order_details__element-order-details-label-delivery-status${status}`
+          }
         >
           {order.status}
         </p>
@@ -74,7 +79,7 @@ export default function CustomerOrderDetailsTable() {
           type="button"
           data-testid="customer_order_details__button-delivery-check"
           onClick={ () => confirmDelivery() }
-          disabled={ order.status === 'Entregue' }
+          disabled={ order.status !== 'Em Trânsito' }
         >
           Marcar como entregue
         </button>

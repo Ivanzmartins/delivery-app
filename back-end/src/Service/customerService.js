@@ -48,10 +48,11 @@ const getCustomerOrderById = async (userId, saleId) => {
 };
 
 const updateSellerOrderDelivered = async (userId, saleId) => {
-  const sale = await Sale.update(
+  await Sale.update(
     { status: 'Entregue' },
     { where: { userId, id: saleId } },
   );
+  const sale = await getCustomerOrderById(userId, saleId);
   return sale;
 };
 

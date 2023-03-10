@@ -42,4 +42,9 @@ export const changeOrderStatus = async (endpoint, body) => {
   return data;
 };
 
+export const updateOrder = async (endpoint) => {
+  const { data } = await api.put(endpoint);
+  return data;
+};
+
 export default api;
