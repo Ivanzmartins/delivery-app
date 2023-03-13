@@ -3,6 +3,8 @@ import DeliveryContext from '../context/DeliveryContext';
 import { adminPost } from '../services/requests';
 import { getLocalStorageItem } from '../services/localStorage';
 
+import '../styles/registerUserForm.css';
+
 export default function RegisterNewUser() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -52,7 +54,8 @@ export default function RegisterNewUser() {
   };
 
   return (
-    <form onSubmit={ (event) => register(event) }>
+    <section className="new-user-form-container">
+      <h3>Cadastrar novo usuário</h3>
       {isError && (
         <h4
           data-testid="admin_manage__element-invalid-register"
@@ -61,35 +64,50 @@ export default function RegisterNewUser() {
 
         </h4>
       )}
-      <fieldset>
-        <label htmlFor="name-toregister">
+      <form onSubmit={ (event) => register(event) }>
+        <label
+          className="label-register-form"
+          htmlFor="name-toregister"
+        >
           Nome
           <input
             type="text"
             data-testid="admin_manage__input-name"
             value={ name }
+            placeholder="Nome e sobrenome"
             onChange={ ({ target: { value } }) => setName(value) }
           />
         </label>
-        <label htmlFor="email-toregister">
+        <label
+          className="label-register-form"
+          htmlFor="email-toregister"
+        >
           Email
           <input
             type="email"
             data-testid="admin_manage__input-email"
+            placeholder="seuemail@site.com.br"
             value={ email }
             onChange={ ({ target: { value } }) => setEmail(value) }
           />
         </label>
-        <label htmlFor="password-toregister">
+        <label
+          className="label-register-form"
+          htmlFor="password-toregister"
+        >
           Senha
           <input
             type="password"
             data-testid="admin_manage__input-password"
+            placeholder="******"
             value={ password }
             onChange={ ({ target: { value } }) => setPassword(value) }
           />
         </label>
-        <label htmlFor="role-toregister">
+        <label
+          className="label-register-form"
+          htmlFor="role-toregister"
+        >
           Tipo
           <select
             data-testid="admin_manage__select-role"
@@ -102,13 +120,14 @@ export default function RegisterNewUser() {
         </label>
         <button
           type="submit"
+          className="register-form-button"
           data-testid="admin_manage__button-register"
           disabled={ isDisabled }
         >
           Cadastrar
 
         </button>
-      </fieldset>
-    </form>
+      </form>
+    </section>
   );
 }
