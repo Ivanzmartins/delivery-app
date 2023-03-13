@@ -18,6 +18,7 @@ export default function UsersTable() {
 
   return (
     <section className="table-container">
+      <h3>Lista de usuários</h3>
       <table>
         <thead>
           <tr>
