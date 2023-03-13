@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
 import DeliveryContext from '../context/DeliveryContext';
 
+import '../styles/table.css';
+
 export default function UsersTable() {
   const [users, setUsers] = useState([]);
   const { usersOfDB } = useContext(DeliveryContext);
@@ -14,11 +16,8 @@ export default function UsersTable() {
     getUsers();
   }, [usersOfDB]);
 
-  // console.log(users);
-
   return (
-    <div>
-      Lista de usuários
+    <section className="table-container">
       <table>
         <thead>
           <tr>
@@ -33,30 +32,34 @@ export default function UsersTable() {
           {users.map((e, index) => (
             <tr key={ index }>
               <td
+                className="table-index"
                 data-testid={ `admin_manage__element-user-table-item-number-${index}` }
               >
                 {index}
 
               </td>
               <td
+                className="table-user-name"
                 data-testid={ `admin_manage__element-user-table-name-${index}` }
               >
                 {e.name}
 
               </td>
               <td
+                className="table-user-email"
                 data-testid={ `admin_manage__element-user-table-email-${index}` }
               >
                 {e.email}
 
               </td>
               <td
+                className="table-user-role"
                 data-testid={ `admin_manage__element-user-table-role-${index}` }
               >
                 {e.role}
 
               </td>
-              <td>
+              <td className="table-delete-button">
                 <button
                   type="button"
                   data-testid={ `admin_manage__element-user-table-remove-${index}` }
@@ -68,6 +71,6 @@ export default function UsersTable() {
           ))}
         </tbody>
       </table>
-    </div>
+    </section>
   );
 }
