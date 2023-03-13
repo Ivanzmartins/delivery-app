@@ -3,6 +3,7 @@
   color: white;
   display: flex;
   font-size: 1.2rem;
+  height: 61px;
 }
 
 button {
@@ -43,11 +44,22 @@ button {
   width: 150px;
 }
 
-.user-name-header {
-  background-color: var(--third-color);
+.admin-users {
+  background-color: var(--secondary-color);
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-weight: 500;
   padding: 20px 10px;
   text-align: center;
-  width: 190px;
+  width: 200px;
+}
+
+.user-name-header {
+  background-color: var(--third-color);
+  max-width: 270px;
+  padding: 20px 10px;
+  text-align: center;
 }
 
 .logout-button {

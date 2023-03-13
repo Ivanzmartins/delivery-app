@@ -95,7 +95,7 @@ export default function Header() {
           <button
             type="button"
             onClick={ () => goToAdminPage() }
-            className="product-order-active"
+            className="admin-users"
             data-testid="customer_products__element-navbar-link-orders"
           >
             Gerenciar Usuários
