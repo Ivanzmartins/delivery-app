@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { getLocalStorageItem } from '../services/localStorage';
 import { apiGetAll, apiPost } from '../services/requests';
 
-import '../styles/checkout.css';
+import '../styles/adressForm.css';
 
 export default function AddressForm() {
   const [address, setAddress] = useState('');
@@ -57,12 +57,12 @@ export default function AddressForm() {
 
   return (
 
-    <>
+    <main className="container">
       <h2>Detalhes e Endereço para Entrega</h2>
       <div>
         <form>
           <label htmlFor="select">
-            P. Vendedora Resposável:
+            P. Vendedora Responsável:
             <select
               data-testid="customer_checkout__select-seller"
               value={ seller }
@@ -100,6 +100,7 @@ export default function AddressForm() {
           </label>
         </form>
         <button
+          className="finalizar-pedido-button"
           type="submit"
           data-testid="customer_checkout__button-submit-order"
           onClick={ () => finish() }
@@ -107,6 +108,6 @@ export default function AddressForm() {
           Finalizar Pedido
         </button>
       </div>
-    </>
+    </main>
   );
 }

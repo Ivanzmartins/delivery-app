@@ -4,6 +4,8 @@ import { getLocalStorageItem } from '../services/localStorage';
 import { apiGetAll, updateOrder, setToken } from '../services/requests';
 import { FOUR, FIVE, SEVEN, EIGHT, TEN } from '../util/magicNumbers';
 
+import '../styles/orderDetails.css';
+
 export default function CustomerOrderDetailsTable() {
   const [order, setOrder] = useState({});
   const [sale, setSale] = useState([]);
@@ -52,7 +54,7 @@ export default function CustomerOrderDetailsTable() {
   return (
     <div>
       <h2>Detalhe do Pedido</h2>
-      <div>
+      <div className="order-status">
         <strong
           data-testid="customer_order_details__element-order-details-label-order-id"
         >
@@ -96,30 +98,35 @@ export default function CustomerOrderDetailsTable() {
           { sale.map((e, index) => (
             <tr key={ index }>
               <td
+                className="item-number"
                 data-testid={ `customer_order_details__
-                  element-order-table-item-number-${index}` }
+element-order-table-item-number-${index}` }
               >
                 {index + 1}
               </td>
               <td
+                className="item-name"
                 data-testid={ `customer_order_details__
                   element-order-table-name-${index}` }
               >
                 {e.name}
               </td>
               <td
+                className="item-quantity"
                 data-testid={ `customer_order_details__
                   element-order-table-quantity-${index}` }
               >
                 {e.SalesProducts.quantity}
               </td>
               <td
+                className="item-price"
                 data-testid={ `customer_order_details__
                 element-order-table-unit-price-${index}` }
               >
                 {e.price.toString().replace('.', ',')}
               </td>
               <td
+                className="item-subtotal"
                 data-testid={ `customer_order_details__
                   element-order-table-sub-total-${index}` }
               >
@@ -130,8 +137,10 @@ export default function CustomerOrderDetailsTable() {
         </tbody>
       </table>
       <p
+        className="total-price"
         data-testid="customer_order_details__element-order-total-price"
       >
+        {'Total: R$ '}
         {order.totalPrice.toString().replace('.', ',')}
       </p>
     </div>

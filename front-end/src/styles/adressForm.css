@@ -1,0 +1,33 @@
+* {
+  font-family: Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+    sans-serif;
+}
+.container{
+  width: 80%;
+  padding-left: 30px;
+  padding-right: 30px;
+  margin: 50px;
+  border: 1px solid #ccc;
+  box-shadow: 0px 0px 5px  0px#ccc;
+  border-radius: 3px;
+}
+
+label{
+  font-weight: 500;
+  font-size: 1rem;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.finalizar-pedido-1 {
+  background-color: #036B52;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  margin: 10px;
+  border-radius: 3px;
+  float: right;
+  font-weight: 500;
+}
+
+
