@@ -1,0 +1,91 @@
+.orders-container {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  margin-top: 1%;
+}
+
+.order-card {
+  background-color: #edf1f0;
+  border: 1px solid var(--login-background);
+  display: flex;
+  justify-content: space-between;
+  padding: 2px;
+  width: 400px;
+}
+
+.order-id {
+  align-items: center;
+  background-color: white;
+  display: flex;
+  flex-basis: 100px;
+  justify-content: center;
+  padding: 3px;
+}
+
+.order-id p {
+  color: black;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.order-Pendente {
+  align-items: center;
+  background-color: var(--pending-color);
+  border-radius: 5px;
+  color: black;
+  display: flex;
+  flex-basis: 150px;
+  font-weight: 700;
+  justify-content: center;
+}
+
+.order-Pendente p {
+  text-transform: uppercase;
+}
+
+.order-Entregue {
+  align-items: center;
+  background-color: var(--delivered-color);
+  border-radius: 5px;
+  color: black;
+  display: flex;
+  flex-basis: 150px;
+  font-weight: 700;
+  justify-content: center;
+}
+
+.order-Entregue p {
+  text-transform: uppercase;
+}
+
+.order-Preparando {
+  align-items: center;
+  background-color: var(--preparing-color);
+  border-radius: 5px;
+  color: black;
+  display: flex;
+  flex-basis: 150px;
+  font-weight: 700;
+  justify-content: center;
+}
+
+.order-Preparando p {
+  text-transform: uppercase;
+}
+
+.date-and-price {
+  color: black;
+  display: flex;
+  flex-direction: column;
+  font-weight: 700;
+  gap: 5px;
+  padding: 3px;
+}
+
+.date-and-price p {
+  background-color: #f2f7f5;
+  border-radius: 3px;
+  padding: 10px;
+  text-align: center;
+}

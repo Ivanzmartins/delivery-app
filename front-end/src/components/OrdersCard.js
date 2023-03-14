@@ -11,22 +11,32 @@ export default function OrdersCard({ id, status, date, price, actor }) {
   const setActor = actor === 'customer' ? 'customer_orders' : 'seller_orders';
 
   return (
-    <>
-      <div data-testid={ `${setActor}__element-order-id-${id}` }>
-        {`Pedido ${id}`}
+    <div className="order-card">
+      <div className="order-id">
+        <p
+          data-testid={ `${setActor}__element-order-id-${id}` }
+        >
+          {`Pedido ${id}`}
+        </p>
       </div>
-      <div data-testid={ `${setActor}__element-delivery-status-${id}` }>
-        {status}
+      <div className={ `order-${status}` }>
+        <p
+          data-testid={ `${setActor}__element-delivery-status-${id}` }
+        >
+          {status}
+        </p>
       </div>
-      <div data-testid={ `${setActor}__element-order-date-${id}` }>
-        {getDate}
+      <div className="date-and-price">
+        <p data-testid={ `${setActor}__element-order-date-${id}` }>
+          {getDate}
+        </p>
+        <p data-testid={ `${setActor}__element-card-price-${id}` }>
+          R$
+          {' '}
+          { getPrice }
+        </p>
       </div>
-      <div data-testid={ `${setActor}__element-card-price-${id}` }>
-        R$
-        {' '}
-        { getPrice }
-      </div>
-    </>
+    </div>
   );
 }
 

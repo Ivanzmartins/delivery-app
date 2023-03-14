@@ -5,6 +5,8 @@ import OrdersCard from '../components/OrdersCard';
 import { getLocalStorageItem } from '../services/localStorage';
 import { apiGetAllWithToken } from '../services/requests';
 
+import '../styles/orders.css';
+
 export default function Orders() {
   const [allOrders, setAllOrders] = useState([]);
   const [failedRequest, setFailedRequest] = useState(false);
@@ -28,9 +30,9 @@ export default function Orders() {
   return (
     <main>
       <Header />
-      {!failedRequest ? allOrders.map((order) => (
-        <Link key={ order.id } to={ `/seller/orders/${order.id}` }>
-          <div>
+      <div className="orders-container">
+        {!failedRequest ? allOrders.map((order) => (
+          <Link key={ order.id } to={ `/seller/orders/${order.id}` }>
             <OrdersCard
               id={ order.id }
               status={ order.status }
@@ -38,8 +40,8 @@ export default function Orders() {
               price={ order.totalPrice }
               actor="seller"
             />
-          </div>
-        </Link>)) : (<p>{errorMessage}</p>)}
+          </Link>)) : (<p>{errorMessage}</p>)}
+      </div>
     </main>
   );
 }
