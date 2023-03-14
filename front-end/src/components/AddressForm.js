@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { getLocalStorageItem } from '../services/localStorage';
 import { apiGetAll, apiPost } from '../services/requests';
 
+import '../styles/checkout.css';
+
 export default function AddressForm() {
   const [address, setAddress] = useState('');
   const [addressNumber, setAddressNumber] = useState('');

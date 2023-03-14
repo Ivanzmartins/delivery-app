@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { getLocalStorageItem, localStorageSaveItem } from '../services/localStorage';
 
+import '../styles/checkout.css';
+
 function CheckoutTable() {
   const [cart, setCart] = useState(() => getLocalStorageItem('carrinho') || []);
 
@@ -22,7 +24,7 @@ function CheckoutTable() {
   };
 
   return (
-    <>
+    <main className="container">
       <h2>Finalizar Pedido</h2>
       <div>
         <table>
@@ -71,7 +73,7 @@ function CheckoutTable() {
                 >
                   {e.subTotal}
                 </td>
-                <td>
+                <td className="remove-button">
                   <button
                     data-testid={
                       `customer_checkout__element-order-table-remove-${index}`
@@ -90,10 +92,11 @@ function CheckoutTable() {
         <p
           data-testid="customer_checkout__element-order-total-price"
         >
+          Total: R$
           {getTotal()}
         </p>
       </div>
-    </>
+    </main>
   );
 }
 export default CheckoutTable;

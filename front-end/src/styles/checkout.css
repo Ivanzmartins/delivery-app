@@ -1,0 +1,100 @@
+* {
+  font-family: Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+    sans-serif;
+}
+
+.finalizar-pedido {
+  display: flex;
+  flex-direction: column;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+.container {
+  width: 80%;
+  padding-left: 30px;
+  padding-right: 30px;
+  margin: 50px;
+  border: 1px solid #ccc;
+  box-shadow: 0px 0px 5px  0px#ccc;
+  border-radius: 3px;
+}
+
+th {
+  background-color: #fbfffe;
+  align-items: center;
+  font-weight: 400;
+  font-size: 0, 5rem;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+tbody {
+  background-color: #fbfffe;
+}
+
+td {
+  text-align: center;
+  flex-direction: row;
+  position: relative;
+  border: 1px;
+  align-items: center;
+}
+
+[data-testid*="customer_checkout__element-order-table-item-number-"] {
+  background-color: #2fc18c;
+  font-weight: 500;
+  border-radius: 3px 0px 0px 3px;
+}
+
+[data-testid*="customer_checkout__element-order-table-name-"] {
+  background-color: #eaf1ef;
+  font-weight: 400;
+  font-size: 1rem;
+  width: 40%;
+}
+
+[data-testid*="customer_checkout__element-order-table-quantity"] {
+  background-color: #036b52;
+  color: #f2fffc;
+  font-weight: 500;
+}
+
+[data-testid*="customer_checkout__element-order-table-unit-price-"] {
+  background-color: #421981;
+  color: #f2fffc;
+  font-weight: 500;
+}
+
+[data-testid*="customer_checkout__element-order-table-sub-total-"] {
+  background-color: #096aef;
+  color: #f2fffc;
+  font-weight: 500;
+}
+
+.remove-button {
+  background-color: #2fc18c;
+  border-radius: 0px 3px 3px 0px;
+}
+
+[data-testid*="customer_checkout__element-order-table-remove-"] {
+  background-color: #2fc18c;
+  border-radius: 0px 3px 3px 0px;
+  border: none;
+  padding: none;
+  color: #f2fffc;
+  font-weight: 500;
+}
+
+[data-testid*="customer_checkout__element-order-total-price"] {
+  color: #f2fffc;
+  background-color: #036b52;
+  font-weight: 500;
+  font-size: 1.5rem;
+  height: 2rem;
+  border-radius: 3px;
+  float: right;
+  width: 15%;
+  text-align: center;
+  line-height: 30px;
+  margin-bottom: 10px;
+}
