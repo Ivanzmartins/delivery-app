@@ -10,6 +10,8 @@ export default function OrdersCard({ id, status, date, price, actor }) {
 
   const setActor = actor === 'customer' ? 'customer_orders' : 'seller_orders';
 
+  const transito = 'order-transito';
+
   return (
     <div className="order-card">
       <div className="order-id">
@@ -19,7 +21,9 @@ export default function OrdersCard({ id, status, date, price, actor }) {
           {`Pedido ${id}`}
         </p>
       </div>
-      <div className={ `order-${status}` }>
+      <div
+        className={ status === 'Em Trânsito' ? transito : `order-${status}` }
+      >
         <p
           data-testid={ `${setActor}__element-delivery-status-${id}` }
         >

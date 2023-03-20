@@ -4,6 +4,8 @@ import { apiGetAll, changeOrderStatus, setToken } from '../services/requests';
 import { getLocalStorageItem } from '../services/localStorage';
 import { FOUR, FIVE, SEVEN, EIGHT, TEN } from '../util/magicNumbers';
 
+import '../styles/orderDetails.css';
+
 function SellerOrderDetailsTable() {
   const [order, setOrder] = useState({});
   const [sale, setSale] = useState([]);
@@ -59,7 +61,7 @@ function SellerOrderDetailsTable() {
   return (
     <div>
       <h2>Detalhe do Pedido</h2>
-      <div>
+      <div className="order-status">
         <strong
           data-testid="seller_order_details__element-order-details-label-order-id"
         >
@@ -106,30 +108,35 @@ function SellerOrderDetailsTable() {
           {sale.map((e, index) => (
             <tr key={ index }>
               <td
+                className="item-number"
                 data-testid={ `seller_order_details__
                     element-order-table-item-number-${index}` }
               >
                 {index + 1}
               </td>
               <td
+                className="item-name"
                 data-testid={ `seller_order_details__
                     element-order-table-name-${index}` }
               >
                 {e.name}
               </td>
               <td
+                className="item-quantity"
                 data-testid={ `seller_order_details__
                     element-order-table-quantity-${index}` }
               >
                 {e.SalesProducts.quantity}
               </td>
               <td
+                className="item-price"
                 data-testid={ `seller_order_details__
                   element-order-table-unit-price-${index}` }
               >
                 {e.price.toString().replace('.', ',')}
               </td>
               <td
+                className="item-subtotal"
                 data-testid={ `seller_order_details__
                     element-order-table-sub-total-${index}` }
               >
@@ -140,8 +147,10 @@ function SellerOrderDetailsTable() {
         </tbody>
       </table>
       <p
+        className="total-price"
         data-testid="seller_order_details__element-order-total-price"
       >
+        Total: R$
         {order.totalPrice.toString().replace('.', ',')}
       </p>
     </div>

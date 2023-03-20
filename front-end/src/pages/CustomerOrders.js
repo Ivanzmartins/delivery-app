@@ -16,6 +16,14 @@ export default function Orders() {
     try {
       const { token } = getLocalStorageItem('user');
       const orders = await apiGetAllWithToken('/customer/orders', token);
+      // orders = orders.map((order) => {
+      //   if (order.status === 'Em Trânsito') {
+      //     order.status = 'fghhghfg';
+      //   }
+      //   return order;
+      // });
+
+      console.log(orders[2]);
       setAllOrders(orders);
     } catch (error) {
       setFailedRequest(true);

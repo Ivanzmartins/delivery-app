@@ -90,3 +90,18 @@
   padding: 10px;
   text-align: center;
 }
+
+.order-transito{
+  align-items: center;
+  background-color: var(--transit-color);
+  border-radius: 5px;
+  color: black;
+  display: flex;
+  flex-basis: 150px;
+  font-weight: 700;
+  justify-content: center;
+}
+
+.order-transito p {
+  text-transform: uppercase;
+}
